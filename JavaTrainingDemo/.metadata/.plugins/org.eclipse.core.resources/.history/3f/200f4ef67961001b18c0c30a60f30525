@@ -20,13 +20,13 @@ Ext.onReady(function() {
 		      fieldLabel: 'Enter DOB'
     	}, {
 				xtype: 'combo',
-				fieldLabel: 'Enter Dept.',
+				fieldLabel: 'State',
 				store: new Ext.data.SimpleStore({
 					data: [	
-						["ML"],
-						["Autonomous"],
-						["Slimfast"],
-						["ARPA"]
+						["Jharkhand"],
+						["Delhi"],
+						["Mumbai"],
+						["Chennai"],
 						],
 					fields: ['state']
 				}),

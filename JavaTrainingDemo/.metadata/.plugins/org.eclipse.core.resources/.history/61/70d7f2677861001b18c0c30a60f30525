@@ -5,47 +5,30 @@ Ext.onReady(function() {
     width: 300,
     title: 'Enter your Date Filters',
     items: [{
+      xtype: 'datefield',
+      fieldLabel: 'Start date'
+    }, {
+      xtype: 'datefield',
+      fieldLabel: 'End date'
+    }, {
           xtype: 'textfield',
-          name: 'Name',
-          fieldLabel: 'Enter your Name',
+          name: 'username',
+          fieldLabel: 'Enter your name',
           allowBlank: false,
           minLength: 6
         }, {
             xtype: 'textfield',
             name: 'email',
-            fieldLabel: 'Enter Your Email',
+            fieldLabel: 'Enter roll',
             allowBlank: false
         }, {
-		      xtype: 'datefield',
-		      fieldLabel: 'Enter DOB'
-    	}, {
-				xtype: 'combo',
-				fieldLabel: 'Enter Dept.',
-				store: new Ext.data.SimpleStore({
-					data: [	
-						["ML"],
-						["Autonomous"],
-						["Slimfast"],
-						["ARPA"]
-						],
-					fields: ['state']
-				}),
-				displayField: 'state',
-				queryMode: 'local'
-			}, {
             xtype: 'checkboxfield',
             name: 'acceptTerms',
             fieldLabel: 'Terms of Use',
             hideLabel: true,
             margin: '15 0 0 0',
-            boxLabel: "Yes, I'm Sure About Submitting",
-    }, {
-                xtype: 'button',
-                formBind: false,
-                disabled: false,
-                text: 'Submit',
-                width: 140,
-      }
+            boxLabel: 'I have read bla bla.',
+    },
 ],
     renderTo: Ext.getBody()
   });

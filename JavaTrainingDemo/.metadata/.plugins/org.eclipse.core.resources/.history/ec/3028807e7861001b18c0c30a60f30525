@@ -16,36 +16,17 @@ Ext.onReady(function() {
             fieldLabel: 'Enter Your Email',
             allowBlank: false
         }, {
-		      xtype: 'datefield',
-		      fieldLabel: 'Enter DOB'
-    	}, {
-				xtype: 'combo',
-				fieldLabel: 'Enter Dept.',
-				store: new Ext.data.SimpleStore({
-					data: [	
-						["ML"],
-						["Autonomous"],
-						["Slimfast"],
-						["ARPA"]
-						],
-					fields: ['state']
-				}),
-				displayField: 'state',
-				queryMode: 'local'
-			}, {
             xtype: 'checkboxfield',
             name: 'acceptTerms',
             fieldLabel: 'Terms of Use',
             hideLabel: true,
             margin: '15 0 0 0',
             boxLabel: "Yes, I'm Sure About Submitting",
-    }, {
-                xtype: 'button',
-                formBind: false,
-                disabled: false,
-                text: 'Submit',
-                width: 140,
-      }
+    },
+{
+      xtype: 'datefield',
+      fieldLabel: 'Enter DOB'
+    }, 
 ],
     renderTo: Ext.getBody()
   });

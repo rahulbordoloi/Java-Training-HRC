@@ -26,11 +26,11 @@ Ext.onReady(function() {
 						["ML"],
 						["Autonomous"],
 						["Slimfast"],
-						["ARPA"]
+						["ARPA"],
 						],
-					fields: ['state']
+					fields: ['Dept.']
 				}),
-				displayField: 'state',
+				displayField: 'Dept.',
 				queryMode: 'local'
 			}, {
             xtype: 'checkboxfield',
@@ -43,7 +43,7 @@ Ext.onReady(function() {
                 xtype: 'button',
                 formBind: false,
                 disabled: false,
-                text: 'Submit',
+                text: 'Press Here to Submit',
                 width: 140,
       }
 ],

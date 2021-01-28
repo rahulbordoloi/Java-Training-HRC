@@ -1,60 +1,23 @@
-
+/*
 Ext.onReady(function() {
   var filterPanel = Ext.create('Ext.panel.Panel', {
     bodyPadding: 5, 
     width: 300,
     title: 'Enter your Date Filters',
     items: [{
-          xtype: 'textfield',
-          name: 'Name',
-          fieldLabel: 'Enter your Name',
-          allowBlank: false,
-          minLength: 6
-        }, {
-            xtype: 'textfield',
-            name: 'email',
-            fieldLabel: 'Enter Your Email',
-            allowBlank: false
-        }, {
-		      xtype: 'datefield',
-		      fieldLabel: 'Enter DOB'
-    	}, {
-				xtype: 'combo',
-				fieldLabel: 'Enter Dept.',
-				store: new Ext.data.SimpleStore({
-					data: [	
-						["ML"],
-						["Autonomous"],
-						["Slimfast"],
-						["ARPA"]
-						],
-					fields: ['state']
-				}),
-				displayField: 'state',
-				queryMode: 'local'
-			}, {
-            xtype: 'checkboxfield',
-            name: 'acceptTerms',
-            fieldLabel: 'Terms of Use',
-            hideLabel: true,
-            margin: '15 0 0 0',
-            boxLabel: "Yes, I'm Sure About Submitting",
+      xtype: 'datefield',
+      fieldLabel: 'Start date'
     }, {
-                xtype: 'button',
-                formBind: false,
-                disabled: false,
-                text: 'Submit',
-                width: 140,
-      }
-],
+      xtype: 'datefield',
+      fieldLabel: 'End date'
+    }],
     renderTo: Ext.getBody()
   });
 });
 
 
-/*
+*/
 Ext.onReady(function() {
-	
 
     var formPanel = Ext.widget('form', {
         renderTo: Ext.getBody(),
@@ -104,7 +67,6 @@ Ext.onReady(function() {
     });
 
 });
-*/
 
 Ext.application({
     name : 'ExtJs App',

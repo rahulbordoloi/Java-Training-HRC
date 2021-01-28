@@ -19,20 +19,6 @@ Ext.onReady(function() {
 		      xtype: 'datefield',
 		      fieldLabel: 'Enter DOB'
     	}, {
-				xtype: 'combo',
-				fieldLabel: 'Enter Dept.',
-				store: new Ext.data.SimpleStore({
-					data: [	
-						["ML"],
-						["Autonomous"],
-						["Slimfast"],
-						["ARPA"]
-						],
-					fields: ['state']
-				}),
-				displayField: 'state',
-				queryMode: 'local'
-			}, {
             xtype: 'checkboxfield',
             name: 'acceptTerms',
             fieldLabel: 'Terms of Use',
@@ -43,7 +29,7 @@ Ext.onReady(function() {
                 xtype: 'button',
                 formBind: false,
                 disabled: false,
-                text: 'Submit',
+                text: 'Press Here to Submit',
                 width: 140,
       }
 ],
