@@ -1,115 +1,84 @@
 
-Ext.onReady(function() {
-  var filterPanel = Ext.create('Ext.panel.Panel', {
-    bodyPadding: 5, 
-    width: 300,
-    title: 'Enter your Date Filters',
-    items: [{
-          xtype: 'textfield',
-          name: 'Name',
-          fieldLabel: 'Enter your Name',
-          allowBlank: false,
-          minLength: 6
-        }, {
-            xtype: 'textfield',
-            name: 'email',
-            fieldLabel: 'Enter Your Email',
-            allowBlank: false
-        }, {
-		      xtype: 'datefield',
-		      fieldLabel: 'Enter DOB'
-    	}, {
-				xtype: 'combo',
-				fieldLabel: 'Enter Dept.',
-				store: new Ext.data.SimpleStore({
-					data: [	
-						["ML"],
-						["Autonomous"],
-						["Slimfast"],
-						["ARPA"]
-						],
-					fields: ['state']
-				}),
-				displayField: 'state',
-				queryMode: 'local'
-			}, {
-            xtype: 'checkboxfield',
-            name: 'acceptTerms',
-            fieldLabel: 'Terms of Use',
-            hideLabel: true,
-            margin: '15 0 0 0',
-            boxLabel: "Yes, I'm Sure About Submitting",
-    }, {
-                xtype: 'button',
-                formBind: false,
-                disabled: false,
-                text: 'Submit',
-                width: 140,
-      }
-],
-    renderTo: Ext.getBody()
-  });
-});
-
-
-/*
-Ext.onReady(function() {
-	
-
-    var formPanel = Ext.widget('form', {
-        renderTo: Ext.getBody(),
-        frame: true,
-        width: 350,
-        bodyPadding: 10,
-        bodyBorder: true,
-        title: 'This is a form',
-
-        defaults: {
-            anchor: '100%'
-        },
-        fieldDefaults: {
-            labelWidth: 110,
-            labelAlign: 'left',
-            msgTarget: 'none',
-        },
-
-        items: [{
-            xtype: 'textfield',
-            name: 'username',
-            fieldLabel: 'Enter your name',
-            allowBlank: false,
-            minLength: 6
-        }, {
-            xtype: 'textfield',
-            name: 'email',
-            fieldLabel: 'Enter roll',
-            allowBlank: false
-        }, {
-            xtype: 'checkboxfield',
-            name: 'acceptTerms',
-            fieldLabel: 'Terms of Use',
-            hideLabel: true,
-            margin: '15 0 0 0',
-            boxLabel: 'I have read bla bla.',
-    }, {
-                xtype: 'button',
-                formBind: false,
-                disabled: false,
-                text: 'Submit',
-                width: 140,
-      }
-    ]
-    
-
-    });
-
-});
-*/
-
 Ext.application({
-    name : 'ExtJs App',
+	name : 'Rahul',
 
-    launch : function() {
-        Ext.Msg.alert('ExtJs App', 'Welcome to My ExtJS App!');
-    }
-})
+	launch : function() {
+		
+		Ext.define('User', {
+		    extend: 'Ext.data.Model',
+		    fields: [ 'Name', 'Dept', 'Age', 'Salary']
+		});
+		
+		var userStore = Ext.create('Ext.data.Store', {
+		    model: 'User',
+		    data: [
+		        { Name: 'Rahul', Dept: 'ML', Age: '21', Salary: '720000' },
+		        { Name: 'Saman', Dept: 'Autonomous', Age: '20', Salary: '5600000' },
+		        { Name: 'Ayesha', Dept: 'ARPA', Age: '21', Salary: '7800000' },
+		        { Name: 'Ahseya', Dept: 'Slimfast', Age: '49', Salary: '2300000'},
+				{ Name: 'Chris', Dept: 'Analytics', Age: '37', Salary: '3400000'},
+				{ Name: 'Dude', Dept: 'Freeda', Age: '89', Salary: '800000' },
+				{ Name: 'Jack', Dept: 'Consulting', Age: '60', Salary: '10' },
+		   	]
+		});
+		
+		Ext.create('Ext.grid.Panel', {
+		    renderTo: Ext.getBody(),
+		    store: userStore,
+			selModel: {
+		        selType: 'checkboxmodel',
+		        mode: 'MULTI',
+		        checkOnly: true,
+		        listeners: {
+		            select: function (model, record, index, eOpts) {
+		                Ext.Msg.alert('You have Selected a Row!',  userStore.data.items[index].data['Dept']);
+						console.log('Name : ', userStore.data.items[index].data['Name'])
+		            }
+		        }
+		    },
+		    plugins: [{
+		        ptype: 'rowediting',
+		        clicksToEdit: 1
+		    }],
+			pageSize:4,
+		    flex: 1,
+		    title: 'EmpDetails',
+		    columns: [
+		        {
+		            text: 'Name',
+		            width: 200,
+		            dataIndex: 'Name',
+		            //flex: 1
+		        },
+		        {
+		            text: 'Dept',
+		            width: 150,
+		            //flex: 1,
+		            dataIndex: 'Dept'
+		        },
+		        {
+		            text: 'Age',
+		            flex: 1,
+		            dataIndex: 'Age'
+		        },
+				{
+		            text: 'Salary',
+		            flex: 1,
+		            dataIndex: 'Salary'
+		        }
+		    ],
+		    
+			bbar: [{
+                xtype: 'pagingtoolbar',
+				width: 950,
+                bind:{
+                    store: '{StudentListPagingStore}'
+                },
+                displayInfo: true,
+                displayMsg: 'Displaying {0} to {1} of {2} &nbsp;records ',
+                emptyMsg: "No records to display&nbsp;"
+            }]
+		});
+		
+	}
+});

@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<title>Index Page</title>
+<title>ExtJs App</title>
 <head>
 <meta charset="ISO-8859-1">
 
@@ -19,6 +19,6 @@
 
 </head>
 <body>
-<h1><b> Sample ExtJs Application! </b></h1>
+<h1><b> My ExtJs Application! </b></h1>
 </body>
 </html>

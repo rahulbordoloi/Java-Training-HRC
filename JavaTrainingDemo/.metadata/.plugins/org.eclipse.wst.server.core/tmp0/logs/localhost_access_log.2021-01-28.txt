@@ -98,3 +98,9 @@
 0:0:0:0:0:0:0:1 - - [28/Jan/2021:21:11:35 +0530] "GET /JavaDemo/js/extjs/ext-all-debug.js HTTP/1.1" 304 -
 0:0:0:0:0:0:0:1 - - [28/Jan/2021:21:11:35 +0530] "GET /JavaDemo/js/extjs/ext-all-debug-6.0.2.js HTTP/1.1" 304 -
 0:0:0:0:0:0:0:1 - - [28/Jan/2021:21:11:36 +0530] "GET /JavaDemo/js/js/EmpList.js HTTP/1.1" 304 -
+127.0.0.1 - - [28/Jan/2021:22:01:46 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [28/Jan/2021:22:01:47 +0530] "GET /JavaDemo/ HTTP/1.1" 200 886
+0:0:0:0:0:0:0:1 - - [28/Jan/2021:22:01:47 +0530] "GET /JavaDemo/js/js/EmpList.js HTTP/1.1" 200 2681
+0:0:0:0:0:0:0:1 - - [28/Jan/2021:22:01:55 +0530] "GET /JavaDemo/ HTTP/1.1" 200 886
+0:0:0:0:0:0:0:1 - - [28/Jan/2021:22:01:55 +0530] "GET /JavaDemo/js/js/EmpList.js HTTP/1.1" 200 2681
+0:0:0:0:0:0:0:1 - - [28/Jan/2021:22:01:57 +0530] "GET /favicon.ico HTTP/1.1" 404 762
