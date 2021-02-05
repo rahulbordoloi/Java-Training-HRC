@@ -1,0 +1,45 @@
+Ext.onReady(function() {
+		Ext.define("com.code2succeed.Emp", {
+			extend: "Ext.data.Model",
+			fields: ["firstName", "lastName", "age", "city", "country"]
+		});
+		
+		var empStore = Ext.create("Ext.data.Store", {
+			model: "com.code2succeed.Emp", 
+			data: [
+				{'firstName': 'firstName1', 'lastName': 'lastName1', 'age':22, 'city':'New York', 'country': 'USA'},
+				{'firstName': 'firstName2', 'lastName': 'lastName2', 'age':25, 'city':'Mumbai', 'country': 'INDIA'},
+				{'firstName': 'firstName3', 'lastName': 'lastName3', 'age':23, 'city':'New Delhi', 'country': 'INDIA'},
+				{'firstName': 'firstName4', 'lastName': 'lastName4', 'age':30, 'city':'London', 'country': 'UK'}
+			]
+		});
+		
+		Ext.create("Ext.grid.Panel", {
+			renderTo: document.body,
+			store: empStore,
+			title: "Emp Details", 
+			width: 450,
+			columns: [
+				{
+					text: 'FirstName',
+					dataIndex: 'firstName'
+				},
+				{
+					text: 'LastName',
+					dataIndex: 'lastName'
+				},
+				{
+					text: 'Age',
+					dataIndex: 'age'
+				},
+				{
+					text: 'City',
+					dataIndex: 'city'
+				},
+				{
+					text: 'Country',
+					dataIndex: 'country'
+				}
+			]
+		});
+	});

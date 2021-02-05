@@ -1,0 +1,86 @@
+Ext.application({
+    name : 'Fiddle',
+
+    launch : function() {
+
+
+
+    Ext.define('TestResult', {
+        extend: 'Ext.data.Model',
+        fields: ['student', {
+            name: 'marks',
+            type: 'int'
+        },'email','gender']
+    });
+
+    var grid = Ext.create('Ext.grid.Panel', {
+        width: 1300,
+        height: 600,
+        title: 'Summary Test',
+        style: 'padding: 20px',
+        renderTo: document.body,
+
+        bufferedRenderer: true,  // broken either way we set this, but different
+
+
+        features: [{
+            ftype: 'summary'
+           // ,dock: 'bottom' // this works
+        }],
+        tbar: [{
+            text: 'Add Row',
+            handler: function() {
+                grid.getStore().add({student: 'New Student', marks: "Unknown",email:"Unknown",gender:"Unknown"});
+            }
+        }],
+        store: {
+            model: 'TestResult',
+            data: [{
+                student: 'John',
+                marks: 98,
+                email:'abc@gmail.com',
+                gender:'male'
+
+            },{
+                student: 'Julie',
+                marks: 98,
+                email:'def@gmail.com',
+                gender:'female'
+            },{
+                student: 'Joseph',
+                marks: 68,
+                email:'ijk@gmail.com',
+                gender:'male'
+
+            }]
+        },
+        columns: [{
+            dataIndex: 'student',
+            text: 'Name',
+             width: 300,
+            summaryType: 'count',
+            summaryRenderer: function(value, summaryData, dataIndex) {
+                return Ext.String.format('{0} student{1}', value, value !== 1 ? 's' : '');
+            }
+        }, {
+            dataIndex: 'marks',
+            text: 'Marks',
+             width: 300,
+            summaryType: 'average'
+        },
+        {
+            dataIndex: 'email',
+            text: 'Email',
+             width: 300,
+            summaryType: 'count'
+        },
+        {
+            dataIndex: 'gender',
+            text: 'Gender',
+             width: 300,
+            summaryType: 'count'
+        }]
+    });
+
+    }
+});

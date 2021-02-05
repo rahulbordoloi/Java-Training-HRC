@@ -1,0 +1,64 @@
+
+Ext.onReady(function() {
+	
+	Ext.define("com.code2succeed.Emp", {
+			extend: "Ext.data.Model",
+			fields: ["firstName", "lastName", "age", "gender"]
+	});
+	
+	var empStore = Ext.create("Ext.data.Store", {
+	model: "com.code2succeed.Emp", 
+	data: [
+			{'firstName': 'Rahul', 'lastName': 'Bordoloi', 'age': 21, 'gender':'M'},
+			{'firstName': 'Cristiano', 'lastName': 'Ronaldo', 'age': 36, 'gender': 'M'},
+			{'firstName': 'Saman', 'lastName': 'Aysha', 'age': 18, 'gender': 'M'},
+			{'firstName': 'Saman', 'lastName': 'Ayesha', 'age': 20, 'gender': 'F'}
+		]
+	});
+	
+			Ext.create("Ext.grid.Panel", {
+			renderTo: document.body,
+			store: empStore,
+			title: "Employees' Details", 
+			width: 450,
+			columns: [
+				{
+					text: 'First Name',
+					dataIndex: 'firstName'
+				},
+				{
+					text: 'Last Name',
+					dataIndex: 'lastName'
+				},
+				{
+					text: 'Age',
+					dataIndex: 'age'
+				},
+				{
+					text: 'Gender',
+					dataIndex: 'gender'
+				}
+			],
+			
+			bbar: [{
+                xtype: 'pagingtoolbar',
+				width: 1265,
+                bind:{
+                    store: '{StudentListPagingStore}'
+                },
+                displayInfo: true,
+                displayMsg: 'Displaying {0} to {1} of {2} &nbsp;records ',
+                emptyMsg: "No Records to Display&nbsp;"
+            }]
+		});
+	});
+	
+
+
+Ext.application({
+    name : 'ExtJs App',
+
+    launch : function() {
+        Ext.Msg.alert('ExtJs App', 'Welcome to My ExtJS App!');
+    }
+})
