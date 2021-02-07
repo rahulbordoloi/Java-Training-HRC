@@ -1,84 +1,287 @@
 
-Ext.application({
-	name : 'Rahul',
+Ext.onReady(function() {
+  Ext.create('Ext.form.Panel', {
+    renderTo: document.body,
+    title: 'Movie Advance Search',
+    height: 100,
+    width: 1300,
+    bodyPadding: 20,
 
-	launch : function() {
-		
-		Ext.define('User', {
-		    extend: 'Ext.data.Model',
-		    fields: [ 'Name', 'Dept', 'Age', 'Salary']
-		});
-		
-		var userStore = Ext.create('Ext.data.Store', {
-		    model: 'User',
-		    data: [
-		        { Name: 'Rahul', Dept: 'ML', Age: '21', Salary: '720000' },
-		        { Name: 'Saman', Dept: 'Autonomous', Age: '20', Salary: '5600000' },
-		        { Name: 'Ayesha', Dept: 'ARPA', Age: '21', Salary: '7800000' },
-		        { Name: 'Ahseya', Dept: 'Slimfast', Age: '49', Salary: '2300000'},
-				{ Name: 'Chris', Dept: 'Analytics', Age: '37', Salary: '3400000'},
-				{ Name: 'Dude', Dept: 'Freeda', Age: '89', Salary: '800000' },
-				{ Name: 'Jack', Dept: 'Consulting', Age: '60', Salary: '10' },
-		   	]
-		});
-		
-		Ext.create('Ext.grid.Panel', {
-		    renderTo: Ext.getBody(),
-		    store: userStore,
-			selModel: {
-		        selType: 'checkboxmodel',
-		        mode: 'MULTI',
-		        checkOnly: true,
-		        listeners: {
-		            select: function (model, record, index, eOpts) {
-		                Ext.Msg.alert('You have Selected a Row!',  userStore.data.items[index].data['Dept']);
-						console.log('Name : ', userStore.data.items[index].data['Name'])
-		            }
-		        }
-		    },
-		    plugins: [{
-		        ptype: 'rowediting',
-		        clicksToEdit: 1
-		    }],
-			pageSize:4,
-		    flex: 1,
-		    title: 'EmpDetails',
-		    columns: [
-		        {
-		            text: 'Name',
-		            width: 200,
-		            dataIndex: 'Name',
-		            //flex: 1
-		        },
-		        {
-		            text: 'Dept',
-		            width: 150,
-		            //flex: 1,
-		            dataIndex: 'Dept'
-		        },
-		        {
-		            text: 'Age',
-		            flex: 1,
-		            dataIndex: 'Age'
-		        },
-				{
-		            text: 'Salary',
-		            flex: 1,
-		            dataIndex: 'Salary'
-		        }
-		    ],
-		    
-			bbar: [{
-                xtype: 'pagingtoolbar',
-				width: 950,
-                bind:{
-                    store: '{StudentListPagingStore}'
-                },
-                displayInfo: true,
-                displayMsg: 'Displaying {0} to {1} of {2} &nbsp;records ',
-                emptyMsg: "No records to display&nbsp;"
-            }]
-		});
-		
-	}
+    defaultType: 'textfield',
+layout: {
+        type: 'table',
+    columns: 2,
+ 
+         style: {
+                width: '100%',
+      
+            }
+         // Stretches child items to the height of this panel.
+    },
+defaults: {
+        width: '50%',
+ bodyStyle: 'padding:20px'
+    },
+    items: [
+        {
+            fieldLabel: 'Movie Name',
+            name: 'movieName',
+      flex:1,
+       xtype: 'textfield',
+              
+    style: 'text-align: left; margin-left: 200px;',
+               
+        
+      
+      
+      
+      
+        },
+        {
+            fieldLabel: 'Director Name',
+            name: 'dirName',
+      flex:1,
+      xtype: 'textfield',
+              
+    style: 'text-align: left; margin-left: 30px;',
+       
+        }
+    ]
+});
+
+
+
+
+
+
+
+
+
+});
+
+
+
+
+Ext.onReady(function() {
+  Ext.create('Ext.form.Panel', {
+    renderTo: document.body,
+    marginTop:20,
+    height: 100,
+    width: 1300,
+    bodyPadding: 10,
+    defaultType: 'textfield',
+layout: {
+        type: 'table',
+         // Stretches child items to the height of this panel.
+    },
+style: {
+                width: '100%'
+            },
+defaults: {
+        width: '50%'
+    },
+
+    items: [
+       
+        {
+            xtype: 'datefield',
+            fieldLabel: 'Release Year ',
+            name: 'releaseYear',
+      flex:1,
+      
+              
+    style: 'text-align: left; margin-left: 210px;',
+      
+        },
+
+    {
+            fieldLabel: 'Language',
+            name: 'dirName',
+      flex:1,
+      xtype: 'textfield',
+      xtype: 'combobox',
+              
+    style: 'text-align: left; margin-left: 30px;',
+      
+        }
+
+
+
+    ]
+
+
+
+
+
+
+});
+
+
+
+
+
+
+});
+
+
+Ext.onReady(function() {
+  Ext.create('Ext.form.Panel', {
+    renderTo: document.body,
+    
+   
+layout: {
+        type: 'hbox',
+         // Stretches child items to the height of this panel.
+    },
+ 
+
+buttons: [{
+    xtype:'button',
+    text: 'Search',
+    handler: function(button){
+      var values = formPanel2.getForm().getValues();
+      
+      
+      Ext.Ajax.request({
+        url:'http://localhost:8080/Summer_Internship_Backend/getstart',
+        method:'POST',
+        params:{
+          companyCode:values.companyCode,
+          customerName:values.customerName,
+          documentNumber:values.documentNumber,
+          invoiceId: values.invoiceId,
+          isOpenInvoice:values.isOpenInvoice,
+          paymentMethod:values.paymentMethod,
+          pk:pk
+        },
+        success:function(){
+          Ext.toast( 'Your data is updated for '+values.customerName);
+                     paging.reload();
+//paging.load();
+
+        },
+        failure: function(){
+          Ext.toast('Your data could not be updated');
+        }
+        
+        
+      });
+    
+
+
+      win2.close();
+    
+
+      //window.location.reload();
+
+
+    }
+  },{
+    text: 'Reset',
+    handler: function(){
+      win2.close();
+    }
+  }],
+  buttonAlign: 'center',
+
+
+
+
+
+
+});
+});
+
+Ext.application({
+  name : 'Priyanshu',
+
+launch : function() {
+    
+    Ext.define('User', {
+        extend: 'Ext.data.Model',
+        fields: [ 'Title', 'Description', 'ReleaseYear', 'Language','Director','Rating','SpecialFeature']
+    });
+    
+    var userStore = Ext.create('Ext.data.Store', {
+        model: 'User',
+        data: [
+            { Title: 'Harry Potter', Description: 'Movie of wizards', ReleaseYear: '2015',Language:'English',Director:'X',Rating:'10',SpecialFeature:'Deleted Scenes' },
+           { Title: 'Harry Potter', Description: 'Movie of wizards', ReleaseYear: '2015',Language:'English',Director:'X',Rating:'10',SpecialFeature:'Deleted Scenes' },
+           { Title: 'Harry Potter', Description: 'Movie of wizards', ReleaseYear: '2015',Language:'English',Director:'X',Rating:'10',SpecialFeature:'Deleted Scenes' },
+    { Title: 'Harry Potter', Description: 'Movie of wizards', ReleaseYear: '2015',Language:'English',Director:'X',Rating:'10',SpecialFeature:'Deleted Scenes' }
+         ]
+    });
+    
+    Ext.create('Ext.grid.Panel', {
+        renderTo: Ext.getBody(),
+        store: userStore,
+
+      selModel: {
+            selType: 'checkboxmodel',
+            mode: 'MULTI',
+            checkOnly: true,
+            listeners: {
+                select: function (model, record, index, eOpts) {
+                    Ext.Msg.alert('You have Selected a Row!',  userStore.data.items[index].data['Description']);
+            console.log('Name : ', userStore.data.items[index].data['Title'])
+                }
+            }
+        },
+        plugins: [{
+            ptype: 'rowediting',
+            clicksToEdit: 1
+        }],
+      pageSize:4,
+        flex: 1,
+        title: 'Movie Grid',
+        columns: [
+            {
+                text: 'Title',
+                width: 200,
+                dataIndex: 'Title',
+                //flex: 1
+            },
+            {
+                text: 'Description',
+                width: 150,
+                //flex: 1,
+                dataIndex: 'Description'
+            },
+            {
+                text: 'ReleaseYear',
+                flex: 1,
+                dataIndex: 'ReleaseYear'
+            },
+        {
+                text: 'Language',
+                flex: 1,
+                dataIndex: 'Language'
+            },
+  {
+                text: 'Director',
+                flex: 1,
+                dataIndex: 'Director'
+            },
+  {
+                text: 'Rating',
+                flex: 1,
+                dataIndex: 'Rating'
+            },
+
+      {
+        text: 'SpecialFeature',
+                flex: 1,
+                dataIndex: 'SpecialFeature'
+        
+        
+      }
+
+
+
+        ],
+        
+     
+    });
+    
+  }
 });

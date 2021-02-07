@@ -1,0 +1,7 @@
+127.0.0.1 - - [08/Feb/2021:14:14:20 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [08/Feb/2021:14:14:21 +0530] "GET /JavaDemo/ HTTP/1.1" 200 881
+0:0:0:0:0:0:0:1 - - [08/Feb/2021:14:14:21 +0530] "GET /JavaDemo/js/extjs/ext-all.js HTTP/1.1" 200 2080453
+0:0:0:0:0:0:0:1 - - [08/Feb/2021:14:14:21 +0530] "GET /JavaDemo/js/extjs/ext-all-6.0.2.js HTTP/1.1" 200 2113218
+0:0:0:0:0:0:0:1 - - [08/Feb/2021:14:14:21 +0530] "GET /JavaDemo/js/extjs/ext-all-debug.js HTTP/1.1" 200 9199663
+0:0:0:0:0:0:0:1 - - [08/Feb/2021:14:14:21 +0530] "GET /JavaDemo/js/extjs/ext-all-debug-6.0.2.js HTTP/1.1" 200 9359281
+0:0:0:0:0:0:0:1 - - [08/Feb/2021:14:14:21 +0530] "GET /JavaDemo/js/js/EmpList.js HTTP/1.1" 200 6107
