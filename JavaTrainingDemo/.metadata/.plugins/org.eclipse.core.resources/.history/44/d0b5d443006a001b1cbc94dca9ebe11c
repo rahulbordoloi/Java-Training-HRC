@@ -94,7 +94,7 @@ Ext.application({
 
 			buttons: [{
 				        text: 'Search',
-				        formBind: true,
+				        formBind: true, //only enabled once the form is valid
 				        disabled: true,
 				        handler: function() {
 				            var form = this.up('form').getForm();

@@ -94,7 +94,7 @@ Ext.application({
 
 			buttons: [{
 				        text: 'Search',
-				        formBind: true,
+				        formBind: true, //only enabled once the form is valid
 				        disabled: true,
 				        handler: function() {
 				            var form = this.up('form').getForm();
@@ -138,7 +138,7 @@ Ext.application({
 		    }],
 			pageSize:4,
 		    flex: 1,
-		    title: 'Movies DB Table',
+		    title: 'Movie Advanced Search Panel',
 			store: Ext.data.StoreManager.lookup('DescriptionStore'),
          	dockedItems: [{
 	            xtype: 'pagingtoolbar',
