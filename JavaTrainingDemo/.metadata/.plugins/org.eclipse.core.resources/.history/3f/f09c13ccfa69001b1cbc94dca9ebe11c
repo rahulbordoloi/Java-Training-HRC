@@ -174,7 +174,7 @@ launch : function() {
         }],
       pageSize:4,
         flex: 1,
-        title: 'Movie DB Table',
+        title: 'Movie Grid',
         columns: [
             {
                 text: 'Title',

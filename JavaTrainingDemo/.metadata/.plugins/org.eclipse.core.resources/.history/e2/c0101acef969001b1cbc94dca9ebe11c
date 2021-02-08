@@ -3,9 +3,9 @@
 Ext.onReady(function() {
   Ext.create('Ext.form.Panel', {
     renderTo: document.body,
-    title: 'Movie Advanced Search Panel',
+    title: 'ExtJs Program for Movie Advanced Search',
     height: 100,
-    width: 1600,
+    width: 1300,
     bodyPadding: 20,
 
     defaultType: 'textfield',
@@ -47,7 +47,7 @@ Ext.onReady(function() {
     renderTo: document.body,
     marginTop:20,
     height: 100,
-    width: 1600,
+    width: 1300,
     bodyPadding: 10,
     defaultType: 'textfield',
 	layout: {
@@ -174,16 +174,18 @@ launch : function() {
         }],
       pageSize:4,
         flex: 1,
-        title: 'Movie DB Table',
+        title: 'Movie Grid',
         columns: [
             {
                 text: 'Title',
                 width: 200,
                 dataIndex: 'Title',
+                //flex: 1
             },
             {
                 text: 'Description',
                 width: 150,
+                //flex: 1,
                 dataIndex: 'Description'
             },
             {
@@ -212,8 +214,15 @@ launch : function() {
                 flex: 1,
                 dataIndex: 'SpecialFeature'
         
-      }],
         
-    }); 
+      }
+
+
+
+        ],
+        
+     
+    });
+    
   }
 });

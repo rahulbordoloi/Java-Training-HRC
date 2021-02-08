@@ -1,0 +1,62 @@
+Ext.onReady(function() {
+		
+		var filterPanel = Ext.create('Ext.panel.Panel', {
+		    title: 'Movie Advance Search',
+			bodyPadding: '50 50 50 50' ,
+		    items: [{
+		           
+		    	xtype:'container',
+		        layout: 'hbox',
+		        items: [{
+		          xtype: 'textfield',
+		          name: 'name',
+		          fieldLabel: 'Movie Name ',
+		          allowBlank: false,
+		          minLength: 6,
+		          padding: '20' 
+		          
+		        }, {
+		            xtype: 'textfield',
+				    fieldLabel: 'Director Name ',
+		            padding: '20'
+		        }]}, {
+			           
+			    	xtype:'container',
+			        layout: 'hbox',
+			        items: [{
+					      xtype: 'datefield',
+					      name: 'year',
+				          fieldLabel: 'Release Year ',
+				          allowBlank: false,
+						  padding: '20' 
+
+			    	}, {
+						xtype: 'combo',
+						fieldLabel: 'Language ',
+						padding: '20' ,
+
+						store: new Ext.data.SimpleStore({
+							data: [	
+								["Hindi"],
+								["English"]
+								],
+							fields: ['lang']
+						}),
+						displayField: 'lang',
+						queryMode: 'local',
+						
+		    	 }]}],
+		    	 
+		    	 buttons: [{
+			        //xtype       : 'button',
+			        text       : 'Search'
+			     },
+			    {
+			        //xtype       : 'button',
+			        text       : 'Reset'
+			    }],
+			    
+			buttonAlign: 'center',    
+			renderTo: 'bamboozle' 
+		
+		});
