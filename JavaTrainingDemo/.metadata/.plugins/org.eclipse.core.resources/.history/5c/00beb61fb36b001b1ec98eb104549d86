@@ -1,0 +1,39 @@
+package com.highradius;
+
+import java.sql.*;
+
+public class FilmPojo {
+	
+	private long film_id;
+	private String title;
+	private String description;
+	private long release_year;
+	private int language_id;
+	private int original_language;
+	private int rental_duration;
+	private double rental_rate;
+	private long length;
+	private double replacement_cost;
+	private String rating; 
+	private String special_features; 
+	private java.sql.Date last_update;
+	
+	
+	
+	public FilmPojo(long film_id, String title, String description, long release_year, int language_id, int original_language, int rental_duration, double rental_rate, long length, double replacement_cost, String rating, String special_features, java.sql.Date last_update) {
+		super();
+		this.film_id = film_id;
+		this.title = title;
+		this.description = description;
+		this.release_year = release_year;
+		this.language_id = language_id;
+		this.original_language = original_language;
+		this.rental_duration = rental_duration;
+		this.rental_rate = rental_rate;
+		this.length = length;
+		this.replacement_cost = replacement_cost;
+		this.rating = rating;
+		this.special_features = special_features;
+		this.last_update = last_update;
+	}
+	

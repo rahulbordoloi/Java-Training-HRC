@@ -10,7 +10,7 @@ Ext.application({
      	});
 		
 		var userStore = Ext.create('Ext.data.Store', {
-			storeId:'DescriptionStore',
+			storeId:'movieTableStore',
 		    model: 'Movies',
             enablePaging: true,
 			pageSize:5,
@@ -127,7 +127,7 @@ Ext.application({
 		        checkOnly: true,
 		        listeners: {
 		            select: function (model, record, index, eOpts) {
-		                Ext.Msg.alert('', userStore.data.items[index].data['Title']);
+		                Ext.Msg.alert('Movie Selected!', userStore.data.items[index].data['Title']);
 						console.log(userStore.data.items[index].data['Title'])
 		            }
 		        }
@@ -139,13 +139,13 @@ Ext.application({
 			pageSize:4,
 		    flex: 1,
 		    title: 'Movies DB Table',
-			store: Ext.data.StoreManager.lookup('DescriptionStore'),
+			store: Ext.data.StoreManager.lookup('movieTableStore'),
          	dockedItems: [{
 	            xtype: 'pagingtoolbar',
-	            store: Ext.data.StoreManager.lookup('DescriptionStore'),
+	            store: Ext.data.StoreManager.lookup('movieTableStore'),
 	            displayInfo: true,
 	            dock: 'bottom',
-                displayMsg: 'Displaying {0} to {1} of {2} &nbsp;records ',
+                displayMsg: 'Displaying: {0} to {1} out of {2} &nbsp;records ',
                 emptyMsg: "No records to display&nbsp;"
          	}],
 		    columns: [

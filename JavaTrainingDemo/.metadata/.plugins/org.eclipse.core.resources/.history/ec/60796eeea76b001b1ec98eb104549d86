@@ -1,0 +1,33 @@
+package com.highradius;
+
+import java.io.*;
+import java.sql.*;
+import javax.servlet.ServletException;
+import java.io.IOException;
+
+public class DBConnector {
+	
+	public static void main(String[] args) throws Exception
+	{
+		
+		Connection dbConnection = null;
+		PreparedStatement prStmt = null;
+		ResultSet rS = null;
+		
+		String url = "jdbc:mysql://localhost:3306/practice";
+		String userName = "root";
+		String passWord = "root";
+		String query = "SELECT * FROM titanic_train LIMIT 1;";
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			dbConnection = DriverManager.getConnection(url, userName, passWord);
+			
+			if(dbConnection != null)	System.out.println("DB Connected!")
+		}
+		
+	}
+	
+
+}
