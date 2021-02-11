@@ -5,7 +5,7 @@ import java.sql.*;
 public class FilmPojo {
 	
 	// Setting in the DataTypes of the Columns
-	private long film_id;
+	private int film_id;
 	private String title;
 	private String description;
 	private long release_year;
@@ -18,6 +18,7 @@ public class FilmPojo {
 	private String rating; 
 	private String special_features; 
 	private java.sql.Date last_update;
+	private String director;
 	
 	
 	// Default Constructor
@@ -26,7 +27,7 @@ public class FilmPojo {
 	}
 	
 	// Defining Parameterized Constructor
-	public FilmPojo(long film_id, String title, String description, long release_year, int language_id, int original_language_id, int rental_duration, double rental_rate, long length, double replacement_cost, String rating, String special_features, java.sql.Date last_update) {
+	public FilmPojo(int film_id, String title, String description, long release_year, int language_id, int original_language_id, int rental_duration, double rental_rate, long length, double replacement_cost, String rating, String special_features, java.sql.Date last_update, String director) {
 		
 		super();
 		this.film_id = film_id;
@@ -42,14 +43,15 @@ public class FilmPojo {
 		this.rating = rating;
 		this.special_features = special_features;
 		this.last_update = last_update;
+		this.director = director;
 	}
-	
+
 	// Getters and Setters
-	public long getFilm_id() {
+	public int getFilm_id() {
 		return film_id;
 	}
 
-	public void setFilm_id(long film_id) {
+	public void setFilm_id(int film_id) {
 		this.film_id = film_id;
 	}
 
@@ -148,5 +150,14 @@ public class FilmPojo {
 	public void setLast_update(java.sql.Date last_update) {
 		this.last_update = last_update;
 	}
+
+	public String getDirector() {
+		return director;
+	}
+
+	public void setDirector(String director) {
+		this.director = director;
+	}
 }
+
 	

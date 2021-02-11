@@ -1,0 +1,19 @@
+Ext.onReady(function(){
+
+    Ext.Ajax.request({
+        url: '/api/students',
+        method: 'GET',
+        timeout: 60000,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        success: function (response) {
+            console.log(response.data)
+            Ext.Msg.alert('Status', 'Request Succesful!');
+        },
+        failure: function (response) {
+            Ext.Msg.alert('Status', 'Request Failed!');
+        }
+    });
+
+});

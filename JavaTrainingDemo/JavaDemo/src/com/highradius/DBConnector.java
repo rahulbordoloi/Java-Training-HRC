@@ -4,14 +4,10 @@ import java.io.*;
 import java.util.*;
 import java.sql.*;
 import javax.servlet.ServletException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
-import javax.servlet.annotation.WebServlet;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 
 public class DBConnector extends HttpServlet {
 	
@@ -24,7 +20,7 @@ public class DBConnector extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		
-		System.out.println("DB Connector Servlet");
+		System.out.println("Calling DB Connector Servlet...");
 		Connection dbConnection = null;
 		PreparedStatement prStmt = null;
 		ResultSet rS = null;
@@ -32,7 +28,7 @@ public class DBConnector extends HttpServlet {
 		String url = "jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull";
 		String userName = "root";
 		String passWord = "root";
-		String query = "SELECT * FROM film;";
+		String query = "SELECT COUNT(*) AS Number_Of_Columns FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'sakila' AND TABLE_NAME = 'film';";
 		
 		try {
 			
@@ -48,38 +44,31 @@ public class DBConnector extends HttpServlet {
 			prStmt = dbConnection.prepareStatement(query);
 			System.out.println("Executing Query...");
 			rS = prStmt.executeQuery();
-			ArrayList<FilmPojo> arr = new ArrayList<>();
+			int numberOfColumns = 0;
 			
 			// Extract Data from Result Set
 			while(rS.next()) {
 				
-				FilmPojo obj = new FilmPojo();
-				obj.setFilm_id(rS.getLong("film_id"));
-				obj.setTitle(rS.getString("title"));
-				obj.setDescription(rS.getString("description"));
-				obj.setRelease_year(rS.getLong("release_year"));
-				obj.setLanguage_id(rS.getInt("language_id"));
-				obj.setOriginal_language_id(rS.getInt("original_language_id"));
-				obj.setRental_duration(rS.getInt("rental_duration"));
-				obj.setRental_rate(rS.getDouble("rental_rate"));
-				obj.setLength(rS.getLong("length"));
-				obj.setReplacement_cost(rS.getDouble("replacement_cost"));
-				obj.setRating(rS.getString("rating"));
-				obj.setSpecial_features(rS.getString("special_features"));
-				obj.setLast_update(rS.getDate("last_update"));
+				numberOfColumns = rS.getInt("Number_Of_Columns");
 				
-				// Adding (Appending) Line by Line Parse of SQl Query
-				arr.add(obj);	
 			}
 			
-			// Converting the Same to JSON Object
+			// Generate Response JSON
+			Map<String, Integer> jsonResponse = new HashMap<String, Integer>();
 			Gson gson = new Gson();
-			String jsonString = gson.toJson(arr);
 			PrintWriter documentOut = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
+			jsonResponse.put("resultStatus", 200);
+			jsonResponse.put("noOfCols", numberOfColumns);
+			String jsonString = gson.toJson(jsonResponse);
 			documentOut.write(jsonString);
-			documentOut.flush();
+			System.out.println("Query Sucessful!");
+			
+			// Closing DB Connection
+			rS.close();
+			dbConnection.close();
+			prStmt.close();
 			
 		}
 		
@@ -89,9 +78,6 @@ public class DBConnector extends HttpServlet {
 		
 		finally {
 			
-			// rS.close();
-			// dbConnection.close();
-			// prStmt.close();
 			System.out.println("DB Connection Closed!");
 			
 		}

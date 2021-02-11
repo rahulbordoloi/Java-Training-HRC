@@ -19,6 +19,8 @@
 
 </head>
 <body>
-<h1><b><div style="text-align:center"> ExtJs Movie Application! </div></b></h1>
+<h1>
+    <b> <div style="text-align:center"> ExtJs Movie Application! </div></b>
+</h1>
 </body>
 </html>
