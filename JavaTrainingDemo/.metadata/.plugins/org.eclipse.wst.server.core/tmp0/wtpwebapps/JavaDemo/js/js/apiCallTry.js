@@ -46,13 +46,13 @@ Ext.onReady(function(){
                         },
                         success: function (response) {
                             var responseResult = Ext.decode(response.responseText)
-                            console.log("Response Result" + responseResult)
+                            console.log(responseResult)
                             var storeContent = obj.getStore();
                             // var storeContent = obj.down("grid").getStore();
                             // storeContent.loadData(responseResult);
                             storeContent.getProxy().setData(responseResult);
                             storeContent.load();
-							console.log("Store Content" + storeContent)
+							console.log(storeContent)
                             Ext.Msg.alert('Status', 'Request Succesful!');
                         },
                         failure: function (response) {

@@ -204,3 +204,17 @@
 0:0:0:0:0:0:0:1 - - [11/Feb/2021:15:01:23 +0530] "GET /JavaDemo/apiCallPage.jsp HTTP/1.1" 200 822
 0:0:0:0:0:0:0:1 - - [11/Feb/2021:15:01:23 +0530] "GET /JavaDemo/js/js/apiCallTry.js HTTP/1.1" 304 -
 0:0:0:0:0:0:0:1 - - [11/Feb/2021:15:01:23 +0530] "GET /JavaDemo/DemoDBConnection?_dc=1613035883874 HTTP/1.1" 200 34
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:18:55:36 +0530] "GET /JavaDemo/index_page.jsp HTTP/1.1" 200 393
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:18:55:37 +0530] "GET /favicon.ico HTTP/1.1" 404 762
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:18:55:45 +0530] "GET /JavaDemo/GetData HTTP/1.1" 200 398349
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:18:55:54 +0530] "GET /JavaDemo/DemoDBConnection HTTP/1.1" 200 34
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:21:08:21 +0530] "GET /JavaDemo/index_page.jsp HTTP/1.1" 200 393
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:21:08:24 +0530] "POST /JavaDemo/add HTTP/1.1" 200 23
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:21:09:14 +0530] "GET /JavaDemo HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:21:09:14 +0530] "GET /JavaDemo/ HTTP/1.1" 200 944
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:21:09:14 +0530] "GET /JavaDemo/js/extjs/ext-all.js HTTP/1.1" 200 2080453
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:21:09:14 +0530] "GET /JavaDemo/js/extjs/ext-all-6.0.2.js HTTP/1.1" 200 2113218
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:21:09:14 +0530] "GET /JavaDemo/js/extjs/ext-all-debug-6.0.2.js HTTP/1.1" 200 9359281
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:21:09:14 +0530] "GET /JavaDemo/js/extjs/ext-all-debug.js HTTP/1.1" 200 9199663
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:21:09:14 +0530] "GET /JavaDemo/js/js/EmpList.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [11/Feb/2021:21:09:19 +0530] "GET /JavaDemo/ HTTP/1.1" 200 944

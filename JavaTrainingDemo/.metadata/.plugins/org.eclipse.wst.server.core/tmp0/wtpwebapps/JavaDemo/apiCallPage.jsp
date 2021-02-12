@@ -12,14 +12,17 @@
 <script type = "text/javascript" src="./js/extjs/ext-all-6.0.2.js"></script>
 <script type = "text/javascript" src="./js/extjs/ext-all-debug.js"></script>
 <script type = "text/javascript" src="./js/extjs/ext-all-debug-6.0.2.js"></script>
-<script type = "text/javascript" src="./js/js/apiCallTry.js"></script>
+<!-- <script type = "text/javascript" src="./js/js/apiCallTry.js"></script> -->
+<script type = "text/javascript" src="./js/js/tempFilmGrid.js"></script>
 
 <link href = "https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-triton/resources/theme-triton-all.css" rel = "stylesheet"/>
 
 </head>
 <body>
+<!--
 <h1>
     <b>ExtJs API Call Testing!</b>
 </h1>
+-->
 </body>
 </html>
