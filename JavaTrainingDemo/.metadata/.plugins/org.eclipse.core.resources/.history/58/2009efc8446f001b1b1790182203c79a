@@ -22,22 +22,20 @@ public class GetData extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		
-		System.out.println("Calling GetData Servlet...");
-		
 		// Checking out for Pagination Requests
 		int startParameter = 0, limitParameter = 1001, nullFlag = 0;
 		try {
 			startParameter = Integer.parseInt(request.getParameter("start"));
 			limitParameter = Integer.parseInt(request.getParameter("limit"));
-			System.out.println("Parameterised API Call");
-			System.out.println("Parameters - Start: " + startParameter + " End: " + limitParameter);
+			System.out.println("Start: " + startParameter);
+			System.out.println("Limit: " + limitParameter);
 		}
 		catch(Exception e) {
-			System.out.println("Non-Parameterised API Call");
 			nullFlag = 1;
 		}
  
 		// JDBC Variables Information
+		System.out.println("Calling GetData Servlet...");
 		Connection dbConnection = null;
 		PreparedStatement prStmt = null;
 		ResultSet rS = null;

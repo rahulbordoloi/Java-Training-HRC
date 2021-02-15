@@ -29,11 +29,10 @@ public class GetData extends HttpServlet {
 		try {
 			startParameter = Integer.parseInt(request.getParameter("start"));
 			limitParameter = Integer.parseInt(request.getParameter("limit"));
-			System.out.println("Parameterised API Call");
-			System.out.println("Parameters - Start: " + startParameter + " End: " + limitParameter);
+			System.out.println("Start: " + startParameter);
+			System.out.println("Limit: " + limitParameter);
 		}
 		catch(Exception e) {
-			System.out.println("Non-Parameterised API Call");
 			nullFlag = 1;
 		}
  

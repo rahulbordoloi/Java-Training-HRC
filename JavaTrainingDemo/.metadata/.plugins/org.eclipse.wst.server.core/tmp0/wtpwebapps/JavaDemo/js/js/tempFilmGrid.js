@@ -13,7 +13,7 @@ Ext.application({
             fields: ['film_id', 'title', 'description', 'release_year', 'language_id', 'original_language_id', 'rental_duration', 'rental_rate', 'length', 'replacement_cost', 'rating', 'special_features', 'last_update', 'director']
         });
 
-        // `filmStore` Store 
+        // `filmStore` Store Object to Extract Object after AJAX Call
         var filmStore = Ext.create('Ext.data.Store', {
             storeId: 'filmTableStore',
             model: 'Movies',
@@ -30,6 +30,44 @@ Ext.application({
             autoLoad: true,
             data: []
         });
+
+        /*
+        // Reference Store to Create Static Data Storage [Reference Object]
+        var staticStore = Ext.create('Ext.data.Store', {
+            storeId: 'staticTableStore',
+            model: 'Movies',
+            enablePaging: true,
+            pageSize: 5,
+            proxy: {
+                type: 'memory',
+                enablePaging: true,
+                reader: {
+                    rootProperty: 'topics',
+                    totalProperty: 'totalResults'
+                }
+            },
+            autoLoad: false,
+            listeners: {
+                // 'callback' : () => {
+                //     staticStore.add(filmStore.getRange());
+                // },
+                'load': function(store, records, successful) {
+                    filmStore.loadData(records, true)
+                }
+            },
+            data: []
+        });
+
+        // Reference Store to Create ComboBox for Language Dropdown [Reference Object]
+        // // var languageDropDown = Ext.data.Store({
+        var languageDropDown = Ext.create('Ext.data.Store', {    
+            fields: ['languageSelection'],
+            data: [
+                {'languageSelection' : "English"},
+                {'languageSelection' :"Hindi"},
+            ],
+        });
+        */
 
         // `Form` Panel for Advanced Search
         Ext.create('Ext.form.Panel', {
@@ -73,18 +111,16 @@ Ext.application({
 					margin: '5 50 5 150'					
 			    }, {
                     xtype: 'combobox',
+                    id: 'language_combo',
+                    // // store: languageDropDown,
                     name: 'language',
 			        fieldLabel: 'Language',
                     itemId: 'language',
+
                     // Ext.getCmp('language_combo').getStore().data.items
-                    id: 'language_combo',
-                    store: Ext.data.Store({
-                        fields: ['language'],
-                        data: [
-                            {'language' : "English"},
-                            {'language' :"Hindi"},
-                        ],
-                    }),
+                    // // queryMode: 'local',
+                    // // displayField: 'languageSelection',
+                    // // valueField: 'languageSelection',
 					width: 300,
 					margin: '5 50 5 50'
                 }]

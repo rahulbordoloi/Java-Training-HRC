@@ -24,7 +24,8 @@ Ext.application({
                     type: 'json'
                 }
             },
-            autoLoad: {start: 0, limit: 5},//true,
+            // autoLoad: {start: 0, limit: 5},//true,
+            autoLoad: true,
             data: []
         });
 

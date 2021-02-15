@@ -21,23 +21,8 @@ public class GetData extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		
+		// http://127.0.0.1:8080/JavaDemo/GetData?_dc=1613272297740&page=1&start=0&limit=5
 		System.out.println("Calling GetData Servlet...");
-		
-		// Checking out for Pagination Requests
-		int startParameter = 0, limitParameter = 1001, nullFlag = 0;
-		try {
-			startParameter = Integer.parseInt(request.getParameter("start"));
-			limitParameter = Integer.parseInt(request.getParameter("limit"));
-			System.out.println("Parameterised API Call");
-			System.out.println("Parameters - Start: " + startParameter + " End: " + limitParameter);
-		}
-		catch(Exception e) {
-			System.out.println("Non-Parameterised API Call");
-			nullFlag = 1;
-		}
- 
-		// JDBC Variables Information
 		Connection dbConnection = null;
 		PreparedStatement prStmt = null;
 		ResultSet rS = null;
@@ -45,7 +30,7 @@ public class GetData extends HttpServlet {
 		String url = "jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull";
 		String userName = "root";
 		String passWord = "root";
-		String query = "";
+		String query = "SELECT * FROM film;";
 		
 		try {
 			
@@ -57,19 +42,8 @@ public class GetData extends HttpServlet {
 			if(dbConnection != null)	
 				System.out.println("DB Connected!");
 			
-			// SQL Query String and Prepared Statement Generation
-			if(nullFlag == 1){
-				query = "SELECT * FROM film;";
-				prStmt = dbConnection.prepareStatement(query);
-			}
-			else {
-				query = "SELECT * FROM film LIMIT ?, ?;";
-				prStmt = dbConnection.prepareStatement(query);
-				prStmt.setInt(1, startParameter);
-				prStmt.setInt(2, limitParameter);
-			}
-			
 			// Execute SQL Query
+			prStmt = dbConnection.prepareStatement(query);
 			System.out.println("Executing Query...");
 			rS = prStmt.executeQuery();
 			ArrayList<FilmPojo> arr = new ArrayList<>();
