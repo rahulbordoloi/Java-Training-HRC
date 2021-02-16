@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
+
 import com.google.gson.Gson;
 
 @WebServlet("/GetData")
@@ -99,11 +102,18 @@ public class GetData extends HttpServlet {
 			
 			// Converting the Same to JSON Object
 			Gson gson = new Gson();
-			String jsonString = gson.toJson(arr);
+			JSONObject responseData = new JSONObject();
+			// String jsonData = gson.toJson(arr);
 			PrintWriter documentOut = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
-			documentOut.write(jsonString);
+			responseData.put("success", true);
+			responseData.put("filmData", arr);
+			responseData.put("totalCount", NumberOfEntries.noOfRows());
+			documentOut.write(responseData.toString());
+//			String jsonString = gson.toJson(responseData);
+//			documentOut.write(jsonString);
+			// documentOut.write(jsonString);
 			documentOut.flush();
 			System.out.println("Query Sucessful!");
 			

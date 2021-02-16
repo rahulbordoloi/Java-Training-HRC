@@ -1,7 +1,6 @@
 // Driver ExtJs Program - PRS UI
 
 // Program - 1
-
 Ext.application({
 	name : 'Rahul',
     launch: function() {
@@ -24,7 +23,10 @@ Ext.application({
                 type: 'ajax',
                 enablePaging: true,
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    totalProperty: 'totalCount',
+                    rootProperty: 'filmData',
+                    successProperty: 'success'
                 }
             },
             autoLoad: true,
@@ -57,17 +59,35 @@ Ext.application({
             },
             data: []
         });
-
+*/
         // Reference Store to Create ComboBox for Language Dropdown [Reference Object]
-        // // var languageDropDown = Ext.data.Store({
-        var languageDropDown = Ext.create('Ext.data.Store', {    
+        var languageModel = Ext.define('language', {
+            extend: 'Ext.data.Model',
+            fields: [{
+                name: 'languageSelection',
+                type: 'string'
+            }]
+        })
+
+        var languageDropDown = Ext.create('Ext.data.Store', { 
+            model:  languageModel,  
             fields: ['languageSelection'],
             data: [
                 {'languageSelection' : "English"},
-                {'languageSelection' :"Hindi"},
+                {'languageSelection' : "Hindi"},
             ],
+            // proxy: {
+            //     type: 'ajax',
+            //     url: "./js/js/languages.json",
+            //     reader: {
+            //         type: 'json',
+            //         totalProperty: 'total',
+            //         rootProperty: 'languages'
+            //     }
+            // },
+            autoLoad: true
         });
-        */
+        
 
         // `Form` Panel for Advanced Search
         Ext.create('Ext.form.Panel', {
@@ -85,12 +105,14 @@ Ext.application({
 				items: [{
                     fieldLabel: 'Movie Name',
 			        name: 'movieName',
+                    id: 'movieName',
 			        itemId: 'movieName',
 					width: 300,
 					margin:'5 50 5 150'
 			    }, {
                     fieldLabel: 'Director Name',
 			        name: 'directorName',
+                    id: 'directorName',
                     itemId: 'directorName',
 					width: 300,
 					margin: '5 50 5 50'
@@ -104,6 +126,9 @@ Ext.application({
 				bodyPadding: 5,					
 				items: [{
 			        xtype: 'datefield',
+                    id: 'releaseYear',
+                    vtype: 'daterange',
+                    format: 'Y',
 			        fieldLabel: 'Release Year',
 			        name: 'releaseYear',
                     itemId: 'releaseYear',
@@ -112,15 +137,14 @@ Ext.application({
 			    }, {
                     xtype: 'combobox',
                     id: 'language_combo',
-                    // // store: languageDropDown,
+                    store: languageDropDown,
                     name: 'language',
 			        fieldLabel: 'Language',
                     itemId: 'language',
-
                     // Ext.getCmp('language_combo').getStore().data.items
-                    // // queryMode: 'local',
-                    // // displayField: 'languageSelection',
-                    // // valueField: 'languageSelection',
+                    queryMode: 'local',
+                    displayField: 'languageSelection',
+                    valueField: 'languageSelection',
 					width: 300,
 					margin: '5 50 5 50'
                 }]
@@ -130,13 +154,20 @@ Ext.application({
                 formBind: true,
                 disabled: false,
                 handler: function() {
-                    console.log(this.up('form').items.items)
-                    // this.up('form').down('panel').getComponent('movieName').getSubmitValue()
-                    // const filterFormValues = form.getValues();
-                    // this.up('form').down('#language').getSubmitValue()
-                    // this.up('form').findField(''name').getValue
-                    var form = this.up('form').getForm();
-                    console.log(form);
+                    // console.log(this.up('form').items.items)
+                    // // this.up('form').down('panel').getComponent('movieName').getSubmitValue()
+                    // // const filterFormValues = form.getValues();
+                    // // this.up('form').down('#language').getSubmitValue()
+                    // // this.up('form').findField(''name').getValue
+                    // // var form = this.up('form').getForm();
+                    // debugger;
+                    var form = {
+                        movieName_: Ext.getCmp('movieName').getStore().data.items, //getValue()
+                        directorName_: Ext.getCmp('directorName').getStore().data.items,
+                        releaseYear_: Ext.getCmp('releaseYear').getStore().data.items,
+                        language_: Ext.getCmp('language_combo').getStore().data.items
+                    }
+                    // console.log(JSON.stringify(form));
                     // debugger;
                     if (form.isValid()) {
                         form.submit({
@@ -144,7 +175,8 @@ Ext.application({
                             // method: 'POST',
                             // params: form,
                             success: function(form, action) {
-                               Ext.Msg.alert('Success', action.result.msg);
+                                console.log(JSON.stringify(form));
+                                Ext.Msg.alert('Success', action.result.msg);
                             },
                             failure: function(form, action) {
                                 Ext.Msg.alert('Failed', action.result.msg);
@@ -181,7 +213,7 @@ Ext.application({
 		        clicksToEdit: 1
             }],
             pageSize: 5,
-            height: 450,
+            // height: 450,
             flex: 1,
             title: 'Movies DB Table',
             store: Ext.data.StoreManager.lookup('filmTableStore'),
@@ -189,11 +221,39 @@ Ext.application({
 	            xtype: 'pagingtoolbar',
 	            store: Ext.data.StoreManager.lookup('filmTableStore'),
 	            displayInfo: true,
-	            dock: 'bottom',
-                // pageSize: 5,
-                displayMsg: 'Displaying: {0} to {1} out of {2} &nbsp;records ',
-                emptyMsg: "No records to display&nbsp;"
-         	}],
+	            dock: 'top',
+                pageSize: 5,
+                displayMsg: 'Displaying: {0} to {1} out of {2} &nbsp;Records ',
+                emptyMsg: "No Records to Display!&nbsp;",
+                items: [{
+                    xtype: 'button',
+                    text: 'Add',
+                    id: 'addButton',
+                    textAlign: 'center',
+                    handler: () => {
+                        panel.show();
+                    }
+                }, {
+                    xtype: 'button',
+                    text: 'Edit',
+                    id: 'editButton',
+                    textAlign: 'center',
+                    handler: () => {
+                        panel.show();
+                    }
+                }, {
+                    // iconCls: 'icon-delete',
+                    xtype: 'button',
+                    text: 'Delete',
+                    // tooltip: 'Delete',
+                    id: 'deleteButton',
+                    textAlign: 'center',
+                    // scope: this
+                    handler: () => {
+                        panel.show();
+                    }
+                }]
+            }],
             columns: [{
                 text : 'Film ID',
                 flex : 1,
@@ -620,4 +680,16 @@ Ext.application({
 		});		
 	}
 });
+*/
+
+
+// Sample Format of JSON
+/*
+{
+    {
+        total: PooraCount,
+        data: DB,
+        Success: true
+    }
+}
 */

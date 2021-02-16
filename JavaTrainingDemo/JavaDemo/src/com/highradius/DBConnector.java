@@ -46,7 +46,7 @@ public class DBConnector extends HttpServlet {
 			rS = prStmt.executeQuery();
 			int numberOfColumns = 0;
 			
-			// Extract Data from Result Set
+			// Extracting Data from Result Set
 			while(rS.next()) {
 				
 				numberOfColumns = rS.getInt("Number_Of_Columns");

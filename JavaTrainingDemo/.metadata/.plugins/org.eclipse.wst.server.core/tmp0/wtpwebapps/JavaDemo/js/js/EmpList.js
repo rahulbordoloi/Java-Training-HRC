@@ -21,12 +21,33 @@ Ext.application({
                 type: 'ajax',
                 enablePaging: true,
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    totalProperty: 'totalCount',
+                    rootProperty: 'filmData',
+                    successProperty: 'success'
                 }
             },
-            // autoLoad: {start: 0, limit: 5},//true,
             autoLoad: true,
             data: []
+        });
+
+        // Reference Store to Create ComboBox for Language Dropdown [Reference Object]
+        var languageModel = Ext.define('language', {
+            extend: 'Ext.data.Model',
+            fields: [{
+                name: 'languageSelection',
+                type: 'string'
+            }]
+        })
+
+        var languageDropDown = Ext.create('Ext.data.Store', { 
+            model:  languageModel,  
+            fields: ['languageSelection'],
+            data: [
+                {'languageSelection' : "English"},
+                {'languageSelection' : "Hindi"},
+            ],
+            autoLoad: true
         });
 
         // `Form` Panel for Advanced Search
@@ -68,9 +89,14 @@ Ext.application({
 					margin: '5 50 5 150'					
 			    }, {
                     xtype: 'combobox',
+                    id: 'language_combo',
+                    store: languageDropDown,
 			        fieldLabel: 'Language',
+                    itemId: 'language',
 			        name: 'language',
 					width: 300,
+                    displayField: 'languageSelection',
+                    valueField: 'languageSelection',
 					margin: '5 50 5 50'
                 }]
             }],
