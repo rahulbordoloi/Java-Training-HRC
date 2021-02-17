@@ -10,6 +10,7 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>index_page.jsp</welcome-file>
     <welcome-file>apiCallPage.jsp</welcome-file>
+    <welcome-file>trailFilm.jsp</welcome-file>
   </welcome-file-list>
   
   <servlet>

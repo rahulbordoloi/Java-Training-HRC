@@ -11,6 +11,24 @@ public class dummyTest {
 		
 		System.out.println("Inside Dummy Test Java Class");
 		System.out.println("Number of Rows: " + NumberOfEntries.noOfRows());
+		String query = "SELECT \r\n"
+				+ "film_data.film_id,\r\n"
+				+ "film_data.title,\r\n"
+				+ "film_data.description,\r\n"
+				+ "film_data.release_year,\r\n"
+				+ "lang.name AS `language`,\r\n"
+				+ "film_data.original_language_id,\r\n"
+				+ "film_data.rental_duration,\r\n"
+				+ "film_data.rental_rate,\r\n"
+				+ "film_data.length,\r\n"
+				+ "film_data.replacement_cost,\r\n"
+				+ "film_data.rating,\r\n"
+				+ "film_data.special_features,\r\n"
+				+ "film_data.last_update,\r\n"
+				+ "film_data.director\r\n"
+				+ "FROM film AS film_data\r\n"
+				+ "LEFT JOIN `language` AS lang ON film_data.language_id = lang.language_id;";
+		System.out.println(query);
 
 	}
 

@@ -62,11 +62,46 @@ public class GetData extends HttpServlet {
 			
 			// SQL Query String and Prepared Statement Generation
 			if(nullFlag == 1){
-				query = "SELECT * FROM film;";
+				// query = "SELECT * FROM film;";
+				query = "SELECT \r\n"
+						+ "film_data.film_id,\r\n"
+						+ "film_data.title,\r\n"
+						+ "film_data.description,\r\n"
+						+ "film_data.release_year,\r\n"
+						+ "lang.name AS `language`,\r\n"
+						+ "film_data.original_language_id,\r\n"
+						+ "film_data.rental_duration,\r\n"
+						+ "film_data.rental_rate,\r\n"
+						+ "film_data.length,\r\n"
+						+ "film_data.replacement_cost,\r\n"
+						+ "film_data.rating,\r\n"
+						+ "film_data.special_features,\r\n"
+						+ "film_data.last_update,\r\n"
+						+ "film_data.director\r\n"
+						+ "FROM film AS film_data\r\n"
+						+ "LEFT JOIN `language` AS lang ON film_data.language_id = lang.language_id;"; 
 				prStmt = dbConnection.prepareStatement(query);
 			}
 			else {
-				query = "SELECT * FROM film LIMIT ?, ?;";
+				// query = "SELECT * FROM film LIMIT ?, ?;";
+				query = "SELECT \r\n"
+						+ "film_data.film_id,\r\n"
+						+ "film_data.title,\r\n"
+						+ "film_data.description,\r\n"
+						+ "film_data.release_year,\r\n"
+						+ "lang.name AS `language`,\r\n"
+						+ "film_data.original_language_id,\r\n"
+						+ "film_data.rental_duration,\r\n"
+						+ "film_data.rental_rate,\r\n"
+						+ "film_data.length,\r\n"
+						+ "film_data.replacement_cost,\r\n"
+						+ "film_data.rating,\r\n"
+						+ "film_data.special_features,\r\n"
+						+ "film_data.last_update,\r\n"
+						+ "film_data.director\r\n"
+						+ "FROM film AS film_data\r\n"
+						+ "LEFT JOIN `language` AS lang ON film_data.language_id = lang.language_id\r\n"
+						+ "LIMIT ?, ?;";
 				prStmt = dbConnection.prepareStatement(query);
 				prStmt.setInt(1, startParameter);
 				prStmt.setInt(2, limitParameter);
@@ -85,7 +120,7 @@ public class GetData extends HttpServlet {
 				obj.setTitle(rS.getString("title"));
 				obj.setDescription(rS.getString("description"));
 				obj.setRelease_year(rS.getLong("release_year"));
-				obj.setLanguage_id(rS.getInt("language_id"));
+				obj.setLanguage(rS.getString("language"));
 				obj.setOriginal_language_id(rS.getInt("original_language_id"));
 				obj.setRental_duration(rS.getInt("rental_duration"));
 				obj.setRental_rate(rS.getDouble("rental_rate"));
@@ -101,7 +136,7 @@ public class GetData extends HttpServlet {
 			}
 			
 			// Converting the Same to JSON Object
-			Gson gson = new Gson();
+			// Gson gson = new Gson();
 			JSONObject responseData = new JSONObject();
 			// String jsonData = gson.toJson(arr);
 			PrintWriter documentOut = response.getWriter();

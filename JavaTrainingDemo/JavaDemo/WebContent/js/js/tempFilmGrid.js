@@ -9,7 +9,7 @@ Ext.application({
         Ext.define('Movies', {
             extend: 'Ext.data.Model',
             pageSize : 5,
-            fields: ['film_id', 'title', 'description', 'release_year', 'language_id', 'original_language_id', 'rental_duration', 'rental_rate', 'length', 'replacement_cost', 'rating', 'special_features', 'last_update', 'director']
+            fields: ['film_id', 'title', 'description', 'release_year', 'language', 'original_language_id', 'rental_duration', 'rental_rate', 'length', 'replacement_cost', 'rating', 'special_features', 'last_update', 'director']
         });
 
         // `filmStore` Store Object to Extract Object after AJAX Call
@@ -127,7 +127,7 @@ Ext.application({
 				items: [{
 			        xtype: 'datefield',
                     id: 'releaseYear',
-                    vtype: 'daterange',
+                    // vtype: 'daterange',
                     format: 'Y',
 			        fieldLabel: 'Release Year',
 			        name: 'releaseYear',
@@ -159,17 +159,16 @@ Ext.application({
                     // // const filterFormValues = form.getValues();
                     // // this.up('form').down('#language').getSubmitValue()
                     // // this.up('form').findField(''name').getValue
-                    // // var form = this.up('form').getForm();
-                    // debugger;
-                    var form = {
-                        movieName_: Ext.getCmp('movieName').getStore().data.items, //getValue()
-                        directorName_: Ext.getCmp('directorName').getStore().data.items,
-                        releaseYear_: Ext.getCmp('releaseYear').getStore().data.items,
-                        language_: Ext.getCmp('language_combo').getStore().data.items
-                    }
-                    // console.log(JSON.stringify(form));
+                    var form = this.up('form').getForm();
                     // debugger;
                     if (form.isValid()) {
+                        var formInfo = {
+                            movieName_: Ext.getCmp('movieName').getValue(),
+                            directorName_: Ext.getCmp('directorName').getValue(),
+                            releaseYear_: Ext.getCmp('releaseYear').getValue(),
+                            language_: Ext.getCmp('language_combo').getValue()
+                        }
+                        console.log(JSON.stringify(formInfo));
                         form.submit({
                             // url: '/JavaDemo/postFormData',
                             // method: 'POST',
@@ -271,9 +270,9 @@ Ext.application({
                 flex : 1,
                 dataIndex : 'release_year'
             }, {
-                text : 'Language ID',
+                text : 'Language',
                 flex : 1,
-                dataIndex : 'language_id'
+                dataIndex : 'language'
             }, {
                 text : 'Original Language ID',
                 flex : 1,

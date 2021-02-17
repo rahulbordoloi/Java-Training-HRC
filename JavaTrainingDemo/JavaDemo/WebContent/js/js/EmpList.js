@@ -7,7 +7,7 @@ Ext.application({
         Ext.define('Movies', {
             extend: 'Ext.data.Model',
             pageSize : 5,
-            fields: ['film_id', 'title', 'description', 'release_year', 'language_id', 'original_language_id', 'rental_duration', 'rental_rate', 'length', 'replacement_cost', 'rating', 'special_features', 'last_update', 'director']
+            fields: ['film_id', 'title', 'description', 'release_year', 'language', 'original_language_id', 'rental_duration', 'rental_rate', 'length', 'replacement_cost', 'rating', 'special_features', 'last_update', 'director']
         });
 
         // `filmStore` Store 
@@ -175,9 +175,9 @@ Ext.application({
                 flex : 1,
                 dataIndex : 'release_year'
             }, {
-                text : 'Language ID',
+                text : 'Language',
                 flex : 1,
-                dataIndex : 'language_id'
+                dataIndex : 'language'
             }, {
                 text : 'Original Language ID',
                 flex : 1,

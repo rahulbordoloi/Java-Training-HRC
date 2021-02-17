@@ -9,7 +9,7 @@ public class FilmPojo {
 	private String title;
 	private String description;
 	private long release_year;
-	private int language_id;
+	private String language;
 	private int original_language_id;
 	private int rental_duration;
 	private double rental_rate;
@@ -27,14 +27,14 @@ public class FilmPojo {
 	}
 	
 	// Defining Parameterized Constructor
-	public FilmPojo(int film_id, String title, String description, long release_year, int language_id, int original_language_id, int rental_duration, double rental_rate, long length, double replacement_cost, String rating, String special_features, java.sql.Date last_update, String director) {
+	public FilmPojo(int film_id, String title, String description, long release_year, String language, int original_language_id, int rental_duration, double rental_rate, long length, double replacement_cost, String rating, String special_features, java.sql.Date last_update, String director) {
 		
 		super();
 		this.film_id = film_id;
 		this.title = title;
 		this.description = description;
 		this.release_year = release_year;
-		this.language_id = language_id;
+		this.language = language;
 		this.original_language_id = original_language_id;
 		this.rental_duration = rental_duration;
 		this.rental_rate = rental_rate;
@@ -45,7 +45,7 @@ public class FilmPojo {
 		this.last_update = last_update;
 		this.director = director;
 	}
-
+	
 	// Getters and Setters
 	public int getFilm_id() {
 		return film_id;
@@ -79,12 +79,12 @@ public class FilmPojo {
 		this.release_year = release_year;
 	}
 
-	public int getLanguage_id() {
-		return language_id;
+	public String getLanguage() {
+		return language;
 	}
 
-	public void setLanguage_id(int language_id) {
-		this.language_id = language_id;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	public int getOriginal_language_id() {
@@ -158,6 +158,5 @@ public class FilmPojo {
 	public void setDirector(String director) {
 		this.director = director;
 	}
-}
-
 	
+}
