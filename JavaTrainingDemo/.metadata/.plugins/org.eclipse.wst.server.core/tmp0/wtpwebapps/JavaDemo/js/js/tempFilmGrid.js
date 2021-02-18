@@ -168,6 +168,10 @@ Ext.application({
                             releaseYear_: Ext.getCmp('releaseYear').getValue(),
                             language_: Ext.getCmp('language_combo').getValue()
                         }
+
+                        // Modifying Release Year
+                        formInfo.releaseYear_ = parseInt(formInfo.releaseYear_.slice(0, 4));
+
                         console.log(JSON.stringify(formInfo));
                         form.submit({
                             // url: '/JavaDemo/postFormData',

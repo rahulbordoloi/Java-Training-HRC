@@ -13,9 +13,7 @@
 <script type = "text/javascript" src="./js/extjs/ext-all-debug.js"></script>
 <script type = "text/javascript" src="./js/extjs/ext-all-debug-6.0.2.js"></script>
 <!-- <script type = "text/javascript" src="./js/js/EmpList.js"></script> -->
-<!-- <script type = "text/javascript" src="./js/js/finalFilm.js"></script>  -->
-<!-- <script type = "text/javascript" src="./js/js/tempTry.js"></script>  -->
-<script type = "text/javascript" src="./js/js/newAid.js"></script>
+<script type = "text/javascript" src="./js/js/finalFilm.js"></script>
 
 <link href = "https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-triton/resources/theme-triton-all.css" rel = "stylesheet"/>
 
@@ -25,5 +23,6 @@
     <b> <div style="text-align:center"> ExtJs Movie Application! </div></b>
     <p id = "filmDemoDisplay"></p>
 </h1> -->
+<div id = "sakilaBody"></div>
 </body>
 </html>

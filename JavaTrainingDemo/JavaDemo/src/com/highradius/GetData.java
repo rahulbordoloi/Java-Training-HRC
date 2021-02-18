@@ -8,9 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONObject;
-
 import com.google.gson.Gson;
 
 @WebServlet("/GetData")
@@ -25,7 +23,9 @@ public class GetData extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		
+		System.out.println("*".repeat(50));
 		System.out.println("Calling GetData Servlet...");
+		System.out.println("*".repeat(50));
 		
 		// Checking out for Pagination Requests
 		int startParameter = 0, limitParameter = 1001, nullFlag = 0;

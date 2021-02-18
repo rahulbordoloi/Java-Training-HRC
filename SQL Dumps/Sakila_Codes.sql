@@ -38,3 +38,31 @@ LEFT JOIN `language` AS lang ON film_data.language_id = lang.language_id;
 
 # Taking out Unique Special Features from Film Table
 SELECT DISTINCT(special_features) FROM film;
+
+# Taking out Unique Special Features from Film Table
+SELECT DISTINCT(rating) FROM film;
+
+# Inserting into Film DB
+INSERT INTO film (title, DESCRIPTION, release_year, language_id, director, rating, special_features)
+VALUES ("Titanic", "Bekar", 2020, 1, "Rahul", "PG", "Trailers")
+
+# Inserting into Language DB
+INSERT INTO `language` (language_id, `name`)
+VALUES (10, "Hindi");
+
+# Testing out Update Statement
+UPDATE film 
+SET title = "Titanic PRO", 
+`description` = "Aru Bekaaaaaaar"
+WHERE film_id = 1003;
+
+# Testing out Delete Statement
+DELETE FROM film WHERE film_id = 1003;
+
+# Testing out Search Statement
+SELECT * FROM film 
+WHERE
+title LIKE "%Aca%"
+# and director IS NULL
+AND release_year = 2006
+AND language_id = 1;
