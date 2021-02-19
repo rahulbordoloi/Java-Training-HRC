@@ -66,3 +66,24 @@ title LIKE "%Aca%"
 # and director IS NULL
 AND release_year = 2006
 AND language_id = 1;
+
+# Working out with Multiple Tables
+SELECT * FROM film
+WHERE language_id = (SELECT language_id FROM `language` WHERE NAME = "Hindi");
+
+# Temp Area [Testing]
+
+## Insertion Test
+INSERT INTO film (title, `description`, release_year, language_id, director, rating, special_features)
+VALUES ("Meow", "Cat", 2021, (SELECT language_id FROM `language` WHERE `name` = "Hindi"), "Rony", "G", "Deleted Scenes")
+
+## Update Test
+UPDATE film 
+SET title = "Meow PRO", 
+`description` = "Cat Hehe",
+language_id = (SELECT language_id FROM `language` WHERE `name` = "French")
+WHERE film_id = 1008;
+
+## Delete Check
+# Testing out Delete Statement
+DELETE FROM film WHERE film_id = "1009";

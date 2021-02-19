@@ -23,35 +23,27 @@ public class EditData extends HttpServlet {
 		System.out.println("*".repeat(50));
 		
 		// Reading in Data from Request
-		int film_id = Integer.parseInt(request.getParameter("editFilmId"));
-		String title = request.getParameter("editMovieTitle");
-		String description = request.getParameter("editDescription");
-		long releaseYear = request.getParameter("editReleaseYear") != null ? Long.parseLong(request.getParameter("editReleaseYear")) : 2006;
-		String language = request.getParameter("editLanguage");
-		String director = request.getParameter("editDirector");
-		String rating = request.getParameter("editFilmRating");
-		String specialFeature = request.getParameter("editSpecialFeatures");
+		int film_id = Integer.parseInt(request.getParameter("film_id"));
+		String title = request.getParameter("title");
+		String description = request.getParameter("description");
+		long releaseYear = request.getParameter("release_year") != null ? Long.parseLong(request.getParameter("release_year")) : 2021;
+		String language = request.getParameter("language");
+		String director = request.getParameter("director");
+		String rating = request.getParameter("rating");
+		String specialFeature = request.getParameter("special_features");
 		
-		System.out.println("1. " + title);
-		System.out.println("2. " + description);
-		System.out.println("3. " + releaseYear);
-		System.out.println("4. " + language);
-		System.out.println("5. " + director);
-		System.out.println("6. " + rating);
-		System.out.println("7. " + specialFeature);
+		// // Modifying Release Year
+		// long releaseYear = Long.parseLong(tempReleaseYear.substring(0, 4));
 		
-//		// Modifying Release Year
-//		long releaseYear = Long.parseLong(tempReleaseYear.substring(0, 4));
-		
-		// Checking Condition for language [Converted to Language ID]
-		int langauge_id = 1;
-		if(language.equals("Italian")) langauge_id = 2;
-		else if(language.equals("French")) langauge_id = 5;
-		else if(language.equals("German")) langauge_id = 6;
-		else if(language.equals("Japanese")) langauge_id = 3;
-		else if(language.equals("Mandarin")) langauge_id = 4;
-		else if(language.equals("Mongolian")) langauge_id = 7;
-		else if(language.equals("Hindi")) langauge_id = 10;
+		// // Checking Condition for language [Converted to Language ID]
+		// int langauge_id = 1;
+		// if(language.equals("Italian")) langauge_id = 2;
+		// else if(language.equals("French")) langauge_id = 5;
+		// else if(language.equals("German")) langauge_id = 6;
+		// else if(language.equals("Japanese")) langauge_id = 3;
+		// else if(language.equals("Mandarin")) langauge_id = 4;
+		// else if(language.equals("Mongolian")) langauge_id = 7;
+		// else if(language.equals("Hindi")) langauge_id = 10;
  
 		// JDBC Variables Information
 		Connection dbConnection = null;
@@ -77,7 +69,7 @@ public class EditData extends HttpServlet {
 					+ "SET title = ?, \r\n"
 					+ "`description` = ?,\r\n"
 					+ "release_year = ?,\r\n"
-					+ "language_id = ?,\r\n"
+					+ "language_id = SELECT language_id FROM `language` WHERE `name` = ?),\r\n"
 					+ "director = ?,\r\n"
 					+ "rating = ?,\r\n"
 					+ "special_features = ?\r\n"
@@ -87,13 +79,15 @@ public class EditData extends HttpServlet {
 			prStmt.setString(1, title);
 			prStmt.setString(2, description);
 			prStmt.setLong(3, releaseYear);
-			prStmt.setInt(4, langauge_id);
+			// prStmt.setInt(4, langauge_id);
+			prStmt.setString(4, language);
 			prStmt.setString(5, director);
 			prStmt.setString(6, rating);
 			prStmt.setString(7, specialFeature);
 			prStmt.setInt(8, film_id);
 			
 			// Execute SQL Query
+			System.out.println("Query Associated: " + prStmt);
 			System.out.println("Executing Query...");
 			prStmt.executeUpdate();
 			System.out.println("Query Sucessful! Updated 1 Row in DB.");

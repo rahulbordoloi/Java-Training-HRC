@@ -8,6 +8,8 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="GetFormData"/>
+			<item value="String[] paramValues = request.getParameterValues(&quot;data&quot;);"/>
 			<item value="language"/>
 			<item value="xtype"/>
 			<item value="movie grid"/>

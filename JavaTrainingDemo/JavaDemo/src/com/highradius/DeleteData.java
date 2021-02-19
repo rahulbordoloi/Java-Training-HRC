@@ -2,6 +2,7 @@ package com.highradius;
 
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +23,14 @@ public class DeleteData extends HttpServlet {
 		System.out.println("Calling DeleteData Servlet...");
 		System.out.println("*".repeat(50));
 		
-		// Reading in Data from Request
-		int film_id = Integer.parseInt(request.getParameter("deleteFilmId"));
- 
+		// Reading in Data from Request and Converting it's Datatypes
+		String requestString = request.getParameter("film_id");
+		String[] filmIdListString = requestString.split(",");
+		ArrayList<Integer> filmIdList = new ArrayList<>();
+		for(String id : filmIdListString) {
+			filmIdList.add(Integer.parseInt(id));
+		}
+				 
 		// JDBC Variables Information
 		Connection dbConnection = null;
 		PreparedStatement prStmt = null;
@@ -44,15 +50,36 @@ public class DeleteData extends HttpServlet {
 			if(dbConnection != null)	
 				System.out.println("DB Connected!");
 			
-			// SQL Query String and Prepared Statement Generation
-			query = "DELETE FROM film WHERE film_id = ?;";
-			prStmt = dbConnection.prepareStatement(query);
-			prStmt.setInt(1, film_id);
+//			// Changing ArrayList -> Array to Support Prepared Statement
+//			Array filmIDs = dbConnection.createArrayOf("INTEGER", filmIdList.toArray());
+//			
+//			// SQL Query String and Prepared Statement Generation
+//			query = "DELETE FROM film WHERE film_id IN (?);";
+//			prStmt = dbConnection.prepareStatement(query);
+//			prStmt.setArray(1, filmIDs);
+//			
+//			// Execute SQL Query
+//			System.out.println("Query Associated: " + prStmt);
+//			System.out.println("Executing Query...");
+//			prStmt.executeUpdate();
 			
-			// Execute SQL Query
-			System.out.println("Executing Query...");
-			prStmt.executeUpdate();
-			System.out.println("Query Sucessful! Deleted 1 Row from DB.");
+			// Using For Loop to Perform the Task
+			
+			for(int id : filmIdList) {
+				
+				// SQL Query String and Prepared Statement Generation
+				query = "DELETE FROM film WHERE film_id = ?;";
+				prStmt = dbConnection.prepareStatement(query);
+				prStmt.setInt(1, id);
+				
+				// Execute SQL Query
+				System.out.println("Query Associated: " + prStmt);
+				System.out.println("Executing Query...");
+				prStmt.executeUpdate();
+			
+			}
+			
+			System.out.println(String.format("Query Sucessful! Deleted %d Row(s) from DB.", filmIdList.size()));
 			                 
 			// Closing DB Connection
 			dbConnection.close();

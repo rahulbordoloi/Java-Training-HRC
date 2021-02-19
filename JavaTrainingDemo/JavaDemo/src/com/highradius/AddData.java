@@ -25,21 +25,21 @@ public class AddData extends HttpServlet {
 		// Reading in Data from Request
 		String title = request.getParameter("movieTitle");
 		String description = request.getParameter("movieDescription");
-		long releaseYear = request.getParameter("movieReleaseYear") != null ? Long.parseLong(request.getParameter("movieReleaseYear")) : 2006;
+		long releaseYear = request.getParameter("movieReleaseYear") != null ? Long.parseLong(request.getParameter("movieReleaseYear")) : 2021;
 		String language = request.getParameter("movieLanguage") != null ? request.getParameter("movieLanguage") : "English";
-		String director = request.getParameter("movieDirector");
-		String rating = request.getParameter("movieRating");
-		String specialFeature = request.getParameter("movieSpecialFeatures");
+		String director = request.getParameter("movieDirector") != null ? request.getParameter("movieDirector") : "";
+		String rating = request.getParameter("movieRating") != null ? request.getParameter("movieRating") : "";
+		String specialFeature = request.getParameter("movieSpecialFeatures") != null ? request.getParameter("movieSpecialFeatures") : "";
 		
-		// Checking Condition for language [Converted to Language ID]
-		int langauge_id = 1;
-		if(language.equals("Italian")) langauge_id = 2;
-		else if(language.equals("French")) langauge_id = 5;
-		else if(language.equals("German")) langauge_id = 6;
-		else if(language.equals("Japanese")) langauge_id = 3;
-		else if(language.equals("Mandarin")) langauge_id = 4;
-		else if(language.equals("Mongolian")) langauge_id = 7;
-		else if(language.equals("Hindi")) langauge_id = 10;
+		// // Checking Condition for language [Converted to Language ID]
+		// int langauge_id = 1;
+		// if(language.equals("Italian")) langauge_id = 2;
+		// else if(language.equals("French")) langauge_id = 5;
+		// else if(language.equals("German")) langauge_id = 6;
+		// else if(language.equals("Japanese")) langauge_id = 3;
+		// else if(language.equals("Mandarin")) langauge_id = 4;
+		// else if(language.equals("Mongolian")) langauge_id = 7;
+		// else if(language.equals("Hindi")) langauge_id = 10;
  
 		// JDBC Variables Information
 		Connection dbConnection = null;
@@ -61,19 +61,21 @@ public class AddData extends HttpServlet {
 				System.out.println("DB Connected!");
 			
 			// SQL Query String and Prepared Statement Generation
-			query = "INSERT INTO film (title, description, release_year, language_id, director, rating, special_features)\r\n"
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+			query = "INSERT INTO film (title, `description`, release_year, language_id, director, rating, special_features)\r\n"
+					+ "VALUES (?, ?, ?, (SELECT language_id FROM `language` WHERE `name` = ?), ?, ?, ?)";
 			
 			prStmt = dbConnection.prepareStatement(query);
 			prStmt.setString(1, title);
 			prStmt.setString(2, description);
 			prStmt.setLong(3, releaseYear);
-			prStmt.setInt(4, langauge_id);
+			// prStmt.setInt(4, langauge_id);
+			prStmt.setString(4, language);
 			prStmt.setString(5, director);
 			prStmt.setString(6, rating);
 			prStmt.setString(7, specialFeature);
 			
 			// Execute SQL Query
+			System.out.println("Query Associated: " + prStmt);
 			System.out.println("Executing Query...");
 			prStmt.executeUpdate();
 			System.out.println("Query Sucessful! Inserted 1 Row in DB.");

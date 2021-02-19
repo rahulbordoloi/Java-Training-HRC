@@ -19,7 +19,6 @@ public class GetFormData extends HttpServlet {
 
     public GetFormData() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 
@@ -38,15 +37,15 @@ public class GetFormData extends HttpServlet {
 		// Modifying Release Year
 		long releaseYear = Long.parseLong(tempReleaseYear.substring(0, 4));
 		
-		// Checking Condition for language [Converted to Language ID]
-		int langauge_id = 1;
-		if(language.equals("Italian")) langauge_id = 2;
-		else if(language.equals("French")) langauge_id = 5;
-		else if(language.equals("German")) langauge_id = 6;
-		else if(language.equals("Japanese")) langauge_id = 3;
-		else if(language.equals("Mandarin")) langauge_id = 4;
-		else if(language.equals("Mongolian")) langauge_id = 7;
-		else if(language.equals("Hindi")) langauge_id = 10;
+//		// Checking Condition for language [Converted to Language ID]
+//		int langauge_id = 1;
+//		if(language.equals("Italian")) langauge_id = 2;
+//		else if(language.equals("French")) langauge_id = 5;
+//		else if(language.equals("German")) langauge_id = 6;
+//		else if(language.equals("Japanese")) langauge_id = 3;
+//		else if(language.equals("Mandarin")) langauge_id = 4;
+//		else if(language.equals("Mongolian")) langauge_id = 7;
+//		else if(language.equals("Hindi")) langauge_id = 10;
 		
 		// JDBC Variables Information
 		Connection dbConnection = null;
@@ -73,15 +72,17 @@ public class GetFormData extends HttpServlet {
 					+ "title LIKE \"%?%\"\r\n"
 					+ "# and director IS NULL\r\n"
 					+ "AND release_year = ?\r\n"
-					+ "AND language_id = ?;";
+					+ "AND language_id = (SELECT langauge_id FROM `language` WHERE `name` = ?);";
 					
 			prStmt = dbConnection.prepareStatement(query);
 			prStmt.setString(1, name);
 			// prStmt.setString(2, director);
 			prStmt.setLong(2, releaseYear);
-			prStmt.setInt(3, langauge_id);
+			prStmt.setString(3, language);
+			// prStmt.setInt(3, langauge_id);
 					
 			// Execute SQL Query
+			System.out.println("Query Associated: " + prStmt);
 			System.out.println("Executing Query...");
 			prStmt.executeQuery();
 			System.out.println("Query Sucessful!");
@@ -107,7 +108,6 @@ public class GetFormData extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

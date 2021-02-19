@@ -1,0 +1,84 @@
+package com.highradius;
+
+import java.io.*;
+import java.sql.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/DeleteData")
+public class DeleteData extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    public DeleteData() {
+        super();
+    }
+    
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("*".repeat(50));
+		System.out.println("Calling DeleteData Servlet...");
+		System.out.println("*".repeat(50));
+		
+		// Reading in Data from Request
+		// int film_id = Integer.parseInt(request.getParameter("film_id"));
+		String x = request.getParameter("film_id");
+		System.out.println(x);
+		 
+		// JDBC Variables Information
+		Connection dbConnection = null;
+		PreparedStatement prStmt = null;
+		
+		String url = "jdbc:mysql://localhost:3306/sakila?zeroDateTimeBehavior=convertToNull";
+		String userName = "root";
+		String passWord = "root";
+		String query = "";
+		
+		try {
+			
+			// Registering JDBC Driver
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// Open a Connection
+			dbConnection = DriverManager.getConnection(url, userName, passWord);
+			if(dbConnection != null)	
+				System.out.println("DB Connected!");
+			
+			// SQL Query String and Prepared Statement Generation
+			query = "DELETE FROM film WHERE film_id = ?;";
+			prStmt = dbConnection.prepareStatement(query);
+			// prStmt.setInt(1, film_id);
+			
+			// Execute SQL Query
+			System.out.println("Query Associated: " + prStmt);
+			System.out.println("Executing Query...");
+			prStmt.executeUpdate();
+			System.out.println("Query Sucessful! Deleted 1 Row from DB.");
+			                 
+			// Closing DB Connection
+			dbConnection.close();
+			prStmt.close();
+			
+		}
+		
+		catch(Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		finally {
+			
+			System.out.println("DB Connection Closed!");
+			
+		}
+	}
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}

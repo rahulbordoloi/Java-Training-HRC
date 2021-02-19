@@ -108,6 +108,7 @@ public class GetData extends HttpServlet {
 			}
 			
 			// Execute SQL Query
+			//	// System.out.println("Query Associated: " + prStmt);
 			System.out.println("Executing Query...");
 			rS = prStmt.executeQuery();
 			ArrayList<FilmPojo> arr = new ArrayList<>();
