@@ -64,6 +64,8 @@ var languageDropDown = Ext.create('Ext.data.Store', {
     autoLoad: true
 });
 
+languageDropDown.load();
+
 // Reference Model to Create ComboBox for rating Dropdown
 var ratingModel = Ext.define('ratingsM', {
     extend: 'Ext.data.Model',
@@ -86,6 +88,8 @@ var ratingDropDown = Ext.create('Ext.data.Store', {
     autoLoad: true
 });
 
+ratingDropDown.load();
+
 // Reference Model to Create ComboBox for Special Features Dropdown
 var specialFeaturesModel = Ext.define('speacialF', {
     extend: 'Ext.data.Model',
@@ -106,6 +110,8 @@ var specialFeaturesDropDown = Ext.create('Ext.data.Store', {
     ],
     autoLoad: true
 });
+
+specialFeaturesDropDown.load();
 
 /*                                                        //
     <-------------------- Windows --------------------> 
@@ -405,7 +411,7 @@ Ext.onReady(function () {
                     defaults: {
                         anchor: '100%'
                     },
-                    // url: 'add_item',
+                    url: 'add_item',
                     defaultType: 'textfield',
                     items: [{
                         xtype: 'fieldcontainer',
@@ -440,9 +446,9 @@ Ext.onReady(function () {
                             align: 'middle'
                         },
                         items: [{
-                            // xtype: 'datefield',
-                            // format: 'Y',
-                            xtype: 'textfield',
+                            xtype: 'datefield',
+                            format: 'Y',
+                            // xtype: 'textfield',
                             fieldLabel: 'Release Year',
                             name: 'release_year',
                             id: 'releaseYear'
@@ -454,7 +460,7 @@ Ext.onReady(function () {
                             fieldLabel: 'Language',
                             store: languageDropDown,
                             queryMode: 'local',
-                            displayField: 'language',
+                            displayField: 'languageSelection',
                             name: 'language',
                             id: 'language_combo'
                         }]
@@ -471,10 +477,12 @@ Ext.onReady(function () {
                             var formInfo = {
                                 movieName_: Ext.getCmp('movieName').getValue(),
                                 directorName_: Ext.getCmp('directorName').getValue(),
-                                // releaseYear_: Ext.getCmp('releaseYear').getValue().getFullYear(),
-                                releaseYear_: Ext.getCmp('releaseYear').getValue(),
+                                releaseYear_: Ext.getCmp('releaseYear').getValue().getFullYear() != null ? Ext.getCmp('releaseYear').getValue().getFullYear() : 2006,
+                                // releaseYear_: Ext.getCmp('releaseYear').getValue(),
                                 language_: Ext.getCmp('language_combo').getValue()
                             }
+
+                            console.log("Search Form: " + formInfo)
 
                             // Using Servlet [via Backend]
                             /*
@@ -501,7 +509,7 @@ Ext.onReady(function () {
                             if (!formInfo.movieName_ && !formInfo.directorName_ && !formInfo.releaseYear_ && !formInfo.language_) {
                                 Ext.Msg.alert("Blank Form", "You've submitted a Blank Form!")
                             } 
-                            else if (formInfo.movieName_ && !formInfo.directorName_ && !formInfo.releaseYear_ && !formInfo.language_) {
+                            else if (formInfo.movieName_ && !formInfo.directorName_ && formInfo.releaseYear_ && !formInfo.language_) {
                                 filmStore.load().filter('title', formInfo.movieName_);
                             } 
                             else if (!formInfo.movieName_ && formInfo.directorName_ && !formInfo.releaseYear_ && !formInfo.language_) {
