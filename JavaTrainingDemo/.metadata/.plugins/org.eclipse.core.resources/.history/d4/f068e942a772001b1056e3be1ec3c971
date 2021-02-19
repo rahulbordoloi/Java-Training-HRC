@@ -69,7 +69,7 @@ public class EditData extends HttpServlet {
 					+ "SET title = ?, \r\n"
 					+ "`description` = ?,\r\n"
 					+ "release_year = ?,\r\n"
-					+ "language_id = (SELECT language_id FROM `language` WHERE `name` = ?),\r\n"
+					+ "language_id = SELECT language_id FROM `language` WHERE `name` = ?),\r\n"
 					+ "director = ?,\r\n"
 					+ "rating = ?,\r\n"
 					+ "special_features = ?\r\n"

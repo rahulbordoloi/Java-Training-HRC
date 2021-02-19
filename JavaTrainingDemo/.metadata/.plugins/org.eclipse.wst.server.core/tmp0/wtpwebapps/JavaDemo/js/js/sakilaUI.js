@@ -194,6 +194,7 @@ var addWindow = Ext.create('Ext.window.Window', {
                                 }
                             });
                             addWindow.close();
+                            this.up('form').getForm().reset();
                         },
                         failure: function (response) {
                             Ext.Msg.alert('Request Failed', 'Oops, Please Try Again!');
@@ -295,6 +296,7 @@ var editWindow = Ext.create('Ext.window.Window', {
                                 }
                             });
                             editWindow.close();
+                            this.up('form').getForm().reset();
                         },
                         failure: function (response) {
                             Ext.Msg.alert('Request Failed', 'Oops, Please Try Again!');
@@ -353,6 +355,7 @@ var deleteWindow = Ext.create('Ext.window.Window', {
                                 }
                             });
                             deleteWindow.close();
+                            this.up('form').getForm().reset();
                         },
                         failure: function (response) {
                             Ext.Msg.alert('Request Failed', 'Oops, Please Try Again!');
@@ -477,7 +480,7 @@ Ext.onReady(function () {
                             var formInfo = {
                                 movieName_: Ext.getCmp('movieName').getValue(),
                                 directorName_: Ext.getCmp('directorName').getValue(),
-                                releaseYear_: Ext.getCmp('releaseYear').getValue().getFullYear() != null ? Ext.getCmp('releaseYear').getValue().getFullYear() : 2006,
+                                releaseYear_: (Ext.getCmp('releaseYear').getValue() != null || Ext.getCmp('releaseYear').getValue() != "") ? Ext.getCmp('releaseYear').getValue().getFullYear() : 2006,
                                 // releaseYear_: Ext.getCmp('releaseYear').getValue(),
                                 language_: Ext.getCmp('language_combo').getValue()
                             }
