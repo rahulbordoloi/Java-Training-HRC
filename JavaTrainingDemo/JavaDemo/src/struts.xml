@@ -4,15 +4,12 @@
    "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-<package name="default" extends="json-default">
-		<action name="your_action_name"
-			class="com.highradius.action.MovieAction" 
-method="your_method_name">
-
-	<!-- default method for action is execute() -->
-			
-<result name="result_value">your_jsp_file </result>
-		
-</action>
+	<package name="default" extends="json-default">
+		<action name="your_action_name" class="com.highradius.action.MovieAction">
+					
+			<result name="success">/index.jsp</result>
+			<!-- <result name="failure">index.jsp</result> -->
+				
+		</action>
 	</package>
 </struts>

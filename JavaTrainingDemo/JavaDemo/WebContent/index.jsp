@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<title>Sakila ExtJs UI </title>
+<title>Sakila ExtJs UI</title>
 <head>
 <meta charset="ISO-8859-1">
 
