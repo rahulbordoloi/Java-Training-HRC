@@ -5,7 +5,7 @@
 
 <struts>
 	<package name="default" extends="json-default">
-		<action name="your_action_name" class="com.highradius.action.MovieAction">
+		<action name="GetData" class="com.highradius.action.MovieAction">
 					
 			<result name="success">/index.jsp</result>
 			<!-- <result name="failure">index.jsp</result> -->
