@@ -137,19 +137,24 @@ public class GetData extends HttpServlet {
 			}
 			
 			// Converting the Same to JSON Object
-			// Gson gson = new Gson();
+			Gson gson = new Gson();
 			JSONObject responseData = new JSONObject();
-			// String jsonData = gson.toJson(arr);
+			String jsonData = gson.toJson(arr);
+			
+			
 			PrintWriter documentOut = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
+			
 			responseData.put("success", true);
-			responseData.put("filmData", arr);
+			// responseData.put("filmData", arr);
+			responseData.put("filmData", jsonData.toString());
 			responseData.put("totalCount", NumberOfEntries.noOfRows());
 			documentOut.write(responseData.toString());
 //			String jsonString = gson.toJson(responseData);
 //			documentOut.write(jsonString);
-			// documentOut.write(jsonString);
+			
+			// documentOut.write(responseData.toString());
 			documentOut.flush();
 			System.out.println("Query Sucessful!");
 			

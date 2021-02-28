@@ -20,9 +20,15 @@ var filmStore = Ext.create('Ext.data.Store', {
     proxy: {
         type: 'ajax',
         url : '/JavaDemo/GetData',
-        enablePaging: true,
+        enablePaging: true, 
         reader: {
             type: 'json',
+            transform: function(row) {
+                debugger;
+                let filmData = row.filmData
+                row.filmData = JSON.parse(filmData)
+                return row
+            },
             rootProperty: "filmData",
             totalProperty: "totalCount",
             successProperty: 'success'
