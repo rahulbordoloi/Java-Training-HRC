@@ -1,2 +1,3 @@
 #Tomcat publish data
-#Sun Feb 28 16:01:56 IST 2021
+#Fri Mar 05 08:31:28 IST 2021
+org.eclipse.jst.jee.server\:/binary\:D\:\\Work\\HRC\\Java\ Training\\struts-2.5.26\\lib\\spring-web-4.3.26.RELEASE.jar=WEB-INF/lib/spring-web-4.3.26.RELEASE.jar

@@ -5,5 +5,7 @@ D:\Work\HRC\Java Training\JavaTrainingDemo\.metadata\.plugins\org.eclipse.jst.js
 \JavaDemo\src
 D:\Work\HRC\Java Training\JavaTrainingDemo\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1180367735.index
 \JavaStruts\src
+D:\Work\HRC\Java Training\JavaTrainingDemo\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1923489136.index
+\JavaSevlets\src
 D:\Work\HRC\Java Training\JavaTrainingDemo\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\659432983.index
 \JavaTraining\src
