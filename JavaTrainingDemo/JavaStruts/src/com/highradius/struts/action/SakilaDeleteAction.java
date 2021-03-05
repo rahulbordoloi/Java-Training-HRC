@@ -1,6 +1,6 @@
 package com.highradius.struts.action;
 import com.google.gson.Gson;
-import com.highradius.struts.controllers.SakilaGetData;
+import com.highradius.struts.manager.SakilaGetData;
 import com.highradius.struts.model.FilmPojo;
 
 import java.sql.*;

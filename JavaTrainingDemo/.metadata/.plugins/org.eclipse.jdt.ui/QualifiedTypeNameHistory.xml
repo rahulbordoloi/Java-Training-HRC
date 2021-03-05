@@ -18,9 +18,12 @@
     <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="org.json.JSONObject"/>
     <fullyQualifiedTypeName name="com.highradius.struts.model.FilmPojo"/>
-    <fullyQualifiedTypeName name="com.google.gson.Gson"/>
-    <fullyQualifiedTypeName name="com.highradius.struts.controllers.SakilaGetData"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
-    <fullyQualifiedTypeName name="java.sql.DriverManager"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.highradius.struts.controllers.SakilaGetData"/>
+    <fullyQualifiedTypeName name="com.google.gson.Gson"/>
+    <fullyQualifiedTypeName name="java.sql.DriverManager"/>
+    <fullyQualifiedTypeName name="com.highradius.struts.controllers.SakilaAddData"/>
+    <fullyQualifiedTypeName name="com.highradius.struts.controllers.SakilaDeleteData"/>
+    <fullyQualifiedTypeName name="com.highradius.struts.controllers.SakilaEditData"/>
 </qualifiedTypeNameHistroy>

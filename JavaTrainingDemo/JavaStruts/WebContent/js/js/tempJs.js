@@ -7,7 +7,7 @@
 // `Movies` Model
 Ext.define('Movies', {
     extend: 'Ext.data.Model',
-    pageSize : 15,
+    pageSize : 10,
     fields: ['film_id', 'title', 'description', 'release_year', 'language', 'director', 'rating', 'special_features']
 });
 
@@ -19,7 +19,7 @@ var filmStore = Ext.create('Ext.data.Store', {
     pageSize: 10,
     proxy: {
         type: 'ajax',
-        url : '/JavaStruts/GetSakila.action',
+        url : '/JavaStruts/GetSakilax.action',
         enablePaging: true, 
         reader: {
             type: 'json',
@@ -137,17 +137,17 @@ var addWindow = Ext.create('Ext.window.Window', {
         items: [{
             xtype : 'textfield',
             fieldLabel: 'Title',
-            name: 'movieTitle',
+            name: 'title',
             id: 'movie_title'
         }, {
             xtype : 'textarea',
             fieldLabel: 'Description',
-            name: 'movieDescription',
+            name: 'description',
             id: 'movie_description'
         }, {
             xtype : 'textfield',
             fieldLabel: 'Release Year',
-            name: 'movieReleaseYear',
+            name: 'release_year',
             id: 'movie_release_year'
         }, {
             xtype: 'combobox',
@@ -155,12 +155,12 @@ var addWindow = Ext.create('Ext.window.Window', {
             store: languageDropDown,
             queryMode: 'local',
             displayField: 'languageSelection',
-            name: 'movieLanguage',
+            name: 'language',
             id: 'movie_language'
         }, {
             xtype : 'textfield',
             fieldLabel: 'Director',
-            name: 'movieDirector',
+            name: 'director',
             id: 'movie_director'
         }, {
             xtype: 'combobox',
@@ -168,7 +168,7 @@ var addWindow = Ext.create('Ext.window.Window', {
             store: ratingDropDown,
             queryMode: 'local',
             displayField: 'ratingSelection',
-            name: 'movieRating',
+            name: 'rating',
             id: 'movie_rating'
         }, {
             xtype: 'combobox',
@@ -176,7 +176,7 @@ var addWindow = Ext.create('Ext.window.Window', {
             store: specialFeaturesDropDown,
             queryMode: 'local',
             displayField: 'specialFeaturesSelection',
-            name: 'movieSpecialFeatures',
+            name: 'special_features',
             id: 'movie_special_features'
         }],
         
@@ -191,7 +191,7 @@ var addWindow = Ext.create('Ext.window.Window', {
                 console.log("Add Button: " + addFormEncoded)
                 if (form.isValid()) {
                     Ext.Ajax.request({
-                        url: '/JavaStruts/AddSakila.action',
+                        url: '/JavaStruts/AddSakilax.action',
                         method: 'POST',
                         params: addFormValues,
                         success: function (response) {
@@ -202,7 +202,8 @@ var addWindow = Ext.create('Ext.window.Window', {
                                 }
                             });
                             addWindow.close();
-                            this.up('form').getForm().reset();
+                            // this.up('form').getForm().reset();
+                            addWindow.down('form').getForm().reset();
                         },
                         failure: function (response) {
                             Ext.Msg.alert('Request Failed', 'Oops, Please Try Again!');
@@ -295,7 +296,7 @@ var editWindow = Ext.create('Ext.window.Window', {
                 console.log("Edit Form: " + editFormEncoded);
                 if (form.isValid()) {
                     Ext.Ajax.request({
-                        url: '/JavaStruts/EditSakila.action',
+                        url: '/JavaStruts/EditSakilax.action',
                         method: 'POST',
                         params: editFormValues,
                         success: function (response) {
@@ -306,7 +307,8 @@ var editWindow = Ext.create('Ext.window.Window', {
                                 }
                             });
                             editWindow.close();
-                            this.up('form').getForm().reset();
+                            // this.up('form').getForm().reset();
+                            editWindow.down('form').getForm().reset();
                         },
                         failure: function (response) {
                             Ext.Msg.alert('Request Failed', 'Oops, Please Try Again!');
@@ -340,7 +342,7 @@ var deleteWindow = Ext.create('Ext.window.Window', {
         items: [{
             xtype : 'textfield',
             fieldLabel: 'Film ID',
-            name: 'film_id',
+            name: 'del_filmIds',
             id: 'deleteFilmId'
         }],
         
@@ -356,7 +358,7 @@ var deleteWindow = Ext.create('Ext.window.Window', {
                 console.log("Delete Form: " + deleteFormEncoded);
                 if (form.isValid()) {
                     Ext.Ajax.request({
-                        url: '/JavaStruts/DeleteSakila.action',
+                        url: '/JavaStruts/DeleteSakilax.action',
                         method: 'POST',
                         params: deleteFormValues,
                         success: function (response) {
@@ -367,7 +369,8 @@ var deleteWindow = Ext.create('Ext.window.Window', {
                                 }
                             });
                             deleteWindow.close();
-                            this.up('form').getForm().reset();
+                            // this.up('form').getForm().reset();
+                            deleteWindow.down('form').getForm().reset();
                         },
                         failure: function (response) {
                             Ext.Msg.alert('Request Failed', 'Oops, Please Try Again!');

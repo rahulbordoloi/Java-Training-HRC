@@ -1,11 +1,11 @@
-package com.highradius.struts.controllers;
+package com.highradius.struts.manager;
 
 import java.sql.DriverManager;
 import java.util.HashMap;
-import com.highradius.struts.action.SakilaGetAction;
+import com.highradius.struts.action.SakilaAction;
 import com.highradius.struts.model.FilmPojo;
 
-public class SakilaGetData extends SakilaGetAction {
+public class SakilaGetData extends SakilaAction {
 
 	// `getData` Execute Function
 	public HashMap<String, Object> geSakilatData() {
@@ -21,18 +21,18 @@ public class SakilaGetData extends SakilaGetAction {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// Checking out for Pagination Requests
-			if((this.start == null)|| (this.limit == null))
-				this.nullFlag = 1;
+			if((super.start == null) || (super.limit == null))
+				super.nullFlag = 1;
 			else
-				this.nullFlag = 0;
+				super.nullFlag = 0;
 				
 			// Open a Connection
-			this.dbConnection = DriverManager.getConnection(this.url, this.userName, this.passWord);
-			if(this.dbConnection != null)	
+			super.dbConnection = DriverManager.getConnection(super.url, super.userName, super.passWord);
+			if(super.dbConnection != null)	
 				System.out.println("DB Connected!");
 			
 			// SQL Query String and Prepared Statement Generation
-			this.query = "SELECT \r\n"
+			super.query = "SELECT \r\n"
 					+ "film_data.film_id,\r\n"
 					+ "film_data.title,\r\n"
 					+ "film_data.description,\r\n"
@@ -51,13 +51,13 @@ public class SakilaGetData extends SakilaGetAction {
 					+ "LEFT JOIN `language` AS lang ON film_data.language_id = lang.language_id;"; 
 			
 			// If START and LIMIT are NOT Defined.
-			if(this.nullFlag == 1)
-				prStmt = this.dbConnection.prepareStatement(this.query);
+			if(super.nullFlag == 1)
+				prStmt = super.dbConnection.prepareStatement(super.query);
 
 			// If START and LIMIT are Defined.
 			else {
-				this.query = this.query.replaceAll(";", "") + "\r\nLIMIT ?, ?;";
-				prStmt = this.dbConnection.prepareStatement(this.query);
+				super.query = super.query.replaceAll(";", "") + "\r\nLIMIT ?, ?;";
+				prStmt = super.dbConnection.prepareStatement(super.query);
 				prStmt.setInt(1, start);
 				prStmt.setInt(2, limit);
 
@@ -65,48 +65,48 @@ public class SakilaGetData extends SakilaGetAction {
 			
 			// Execute SQL Query
 			System.out.println("Executing Query...");
-			this.rS = this.prStmt.executeQuery();
+			super.rS = super.prStmt.executeQuery();
 			
 			// Extract Data from Result Set
 			while(rS.next()) {
 
 				FilmPojo obj = new FilmPojo();
-				obj.setFilm_id(this.rS.getInt("film_id"));
-				obj.setTitle(this.rS.getString("title"));
-				obj.setDescription(this.rS.getString("description"));
-				obj.setRelease_year(this.rS.getLong("release_year"));
-				obj.setLanguage(this.rS.getString("language"));
-				obj.setOriginal_language_id(this.rS.getInt("original_language_id"));
-				obj.setRental_duration(this.rS.getInt("rental_duration"));
-				obj.setRental_rate(this.rS.getDouble("rental_rate"));
-				obj.setLength(this.rS.getLong("length"));
-				obj.setReplacement_cost(this.rS.getDouble("replacement_cost"));
-				obj.setRating(this.rS.getString("rating"));
-				obj.setSpecial_features(this.rS.getString("special_features"));
-				obj.setLast_update(this.rS.getDate("last_update"));
-				obj.setDirector(this.rS.getString("director"));
+				obj.setFilm_id(super.rS.getInt("film_id"));
+				obj.setTitle(super.rS.getString("title"));
+				obj.setDescription(super.rS.getString("description"));
+				obj.setRelease_year(super.rS.getLong("release_year"));
+				obj.setLanguage(super.rS.getString("language"));
+				obj.setOriginal_language_id(super.rS.getInt("original_language_id"));
+				obj.setRental_duration(super.rS.getInt("rental_duration"));
+				obj.setRental_rate(super.rS.getDouble("rental_rate"));
+				obj.setLength(super.rS.getLong("length"));
+				obj.setReplacement_cost(super.rS.getDouble("replacement_cost"));
+				obj.setRating(super.rS.getString("rating"));
+				obj.setSpecial_features(super.rS.getString("special_features"));
+				obj.setLast_update(super.rS.getDate("last_update"));
+				obj.setDirector(super.rS.getString("director"));
 				
 				// Adding (Appending) Line by Line Parse of SQl Query
-				this.arr.add(obj);	
+				super.arr.add(obj);	
 
 			}
 			rS.close();
 
 			// Acquiring Number of Rows in DB
-			this.query = "SELECT COUNT(*) as Number_Of_Rows FROM film;";
-			this.prStmt = this.dbConnection.prepareStatement(this.query);
-			this.rS = this.prStmt.executeQuery();
+			super.query = "SELECT COUNT(*) as Number_Of_Rows FROM film;";
+			super.prStmt = super.dbConnection.prepareStatement(super.query);
+			super.rS = super.prStmt.executeQuery();
 			
 			// Extracting Data from Result Set
-			while(this.rS.next()) {
-				numberOfRows = this.rS.getInt("Number_Of_Rows");
+			while(super.rS.next()) {
+				numberOfRows = super.rS.getInt("Number_Of_Rows");
 				break;
 			}
 
 			// Converting the HashMap into Response
 			responseData.put("success", true);
 			responseData.put("totalCount", numberOfRows);
-			responseData.put("filmData", this.arr);
+			responseData.put("filmData", super.arr);
 			
 		}
 

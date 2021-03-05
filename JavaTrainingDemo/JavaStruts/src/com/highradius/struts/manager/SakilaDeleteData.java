@@ -1,15 +1,15 @@
-package com.highradius.struts.controllers;
+package com.highradius.struts.manager;
+
 import java.sql.DriverManager;
 import java.util.ArrayList;
+import com.highradius.struts.action.SakilaAction;
 
-import com.highradius.struts.action.SakilaDeleteAction;
-
-public class SakilaDeleteData extends SakilaDeleteAction{
+public class SakilaDeleteData extends SakilaAction {
 
 	/* ####################################################################################
-	#                           `deleteData` Execute Function                                #
+	#                           `deleteData` Execute Function                             #
 	#################################################################################### */
-	public String deleteData() {
+	public String deleteSakilaData() {
 		
 		System.out.println("*".repeat(50));
 		System.out.println("Calling DeleteData Action...");
@@ -22,12 +22,12 @@ public class SakilaDeleteData extends SakilaDeleteAction{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 				
 			// Open a Connection
-			this.dbConnection = DriverManager.getConnection(this.url, this.userName, this.passWord);
-			if(this.dbConnection != null)	
+			super.dbConnection = DriverManager.getConnection(super.url, super.userName, super.passWord);
+			if(super.dbConnection != null)	
 				System.out.println("DB Connected!");
 
 			// Making the Request into Suitable Format
-			String[] filmIdListString = this.film_id.split(",");
+			String[] filmIdListString = super.del_filmIds.split(",");
 			ArrayList<Integer> filmIdList = new ArrayList<>();
 			for(String id : filmIdListString) {
 				filmIdList.add(Integer.parseInt(id));
@@ -38,22 +38,22 @@ public class SakilaDeleteData extends SakilaDeleteAction{
 			for(int id : filmIdList) {
 							
 				// SQL Query String and Prepared Statement Generation
-				this.query = "DELETE FROM film WHERE film_id = ?;";
-				this.prStmt = this.dbConnection.prepareStatement(this.query);
-				this.prStmt.setInt(1, id);
+				super.query = "DELETE FROM film WHERE film_id = ?;";
+				super.prStmt = super.dbConnection.prepareStatement(super.query);
+				super.prStmt.setInt(1, id);
 				
 				// Execute SQL Query
-				System.out.println("Query Associated: " + this.prStmt);
+				System.out.println("Query Associated: " + super.prStmt);
 				System.out.println("Executing Query...");
-				this.prStmt.executeUpdate();
+				super.prStmt.executeUpdate();
 
 			}
 
 			System.out.println(String.format("Query Sucessful! Deleted %d Row(s) from DB.", filmIdList.size()));
 							
 			// Closing DB Connection
-			this.dbConnection.close();
-			this.prStmt.close();
+			super.dbConnection.close();
+			super.prStmt.close();
 			
 		}
 

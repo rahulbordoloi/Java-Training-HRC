@@ -1,14 +1,14 @@
-package com.highradius.struts.controllers;
+package com.highradius.struts.manager;
+
 import java.sql.DriverManager;
+import com.highradius.struts.action.SakilaAction;
 
-import com.highradius.struts.action.SakilaEditAction;
-
-public class SakilaEditData extends SakilaEditAction {
+public class SakilaEditData extends SakilaAction {
 
 	/* ####################################################################################
 	#                           `editData` Execute Function                                #
 	#################################################################################### */
-	public String editData() {
+	public String editSakilaData() {
 		
 		System.out.println("*".repeat(50));
 		System.out.println("Calling EditData Action...");
@@ -21,12 +21,12 @@ public class SakilaEditData extends SakilaEditAction {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 				
 			// Open a Connection
-			this.dbConnection = DriverManager.getConnection(this.url, this.userName, this.passWord);
-			if(this.dbConnection != null)	
+			super.dbConnection = DriverManager.getConnection(super.url, super.userName, super.passWord);
+			if(super.dbConnection != null)	
 				System.out.println("DB Connected!");
 			
 			// SQL Query String and Prepared Statement Generation
-			this.query = "UPDATE film \r\n"
+			super.query = "UPDATE film \r\n"
 			+ "SET title = ?, \r\n"
 			+ "`description` = ?,\r\n"
 			+ "release_year = ?,\r\n"
@@ -36,25 +36,25 @@ public class SakilaEditData extends SakilaEditAction {
 			+ "special_features = ?\r\n"
 			+ "WHERE film_id = ?;";
 			
-			this.prStmt = dbConnection.prepareStatement(this.query);
-			this.prStmt.setString(1, this.title);
-			this.prStmt.setString(2, this.description);
-			this.prStmt.setLong(3, this.release_year);
-			this.prStmt.setString(4, this.language);
-			this.prStmt.setString(5, this.director);
-			this.prStmt.setString(6, this.rating);
-			this.prStmt.setString(7, this.special_features);
-			this.prStmt.setInt(8, this.film_id);
+			super.prStmt = dbConnection.prepareStatement(super.query);
+			super.prStmt.setString(1, super.title);
+			super.prStmt.setString(2, super.description);
+			super.prStmt.setLong(3, super.release_year);
+			super.prStmt.setString(4, super.language);
+			super.prStmt.setString(5, super.director);
+			super.prStmt.setString(6, super.rating);
+			super.prStmt.setString(7, super.special_features);
+			super.prStmt.setInt(8, super.film_id);
 			
 			// Execute SQL Query
-			System.out.println("Query Associated: " + this.prStmt);
+			System.out.println("Query Associated: " + super.prStmt);
 			System.out.println("Executing Query...");
-			this.prStmt.executeUpdate();
+			super.prStmt.executeUpdate();
 			System.out.println("Query Sucessful! Updated 1 Row in DB.");
 
 			// Closing DB Connection
-			this.dbConnection.close();
-			this.prStmt.close();
+			super.dbConnection.close();
+			super.prStmt.close();
 			
 		}
 
