@@ -11,7 +11,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>error.jsp</welcome-file> 
-    <welcome-file>trailFile.jsp</welcome-file>
   </welcome-file-list>
   
     <filter>
