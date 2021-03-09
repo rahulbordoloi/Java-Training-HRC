@@ -1,4 +1,4 @@
-package com.highradius.struts.dao;
+package com.highradius.struts.daoImpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,9 +7,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.highradius.struts.dao.DAOInterface;
 import com.highradius.struts.model.FilmPojo;
 
-public class SakilaDAO {
+public class SakilaDAO implements DAOInterface {
 	
 	// JDBC Variables Information
 	private Connection dbConnection = null;

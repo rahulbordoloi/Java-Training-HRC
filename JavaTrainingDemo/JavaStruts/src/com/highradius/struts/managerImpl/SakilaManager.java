@@ -1,8 +1,8 @@
-package com.highradius.struts.manager.impl;
+package com.highradius.struts.managerImpl;
 
 import java.util.HashMap;
 
-import com.highradius.struts.dao.SakilaDAO;
+import com.highradius.struts.daoImpl.SakilaDAO;
 import com.highradius.struts.manager.SakilaManagerInterface;
 import com.highradius.struts.model.FilmPojo;
 
