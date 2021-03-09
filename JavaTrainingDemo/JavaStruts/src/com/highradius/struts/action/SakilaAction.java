@@ -3,7 +3,7 @@ package com.highradius.struts.action;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
-import com.highradius.struts.manager.SakilaManager;
+import com.highradius.struts.manager.impl.SakilaManager;
 import com.highradius.struts.model.FilmPojo;
 
 public class SakilaAction extends FilmPojo {

@@ -1,4 +1,4 @@
-package com.highradius.struts.manager.impl;
+package com.highradius.struts.manager;
 
 import java.util.HashMap;
 import com.highradius.struts.model.FilmPojo;
