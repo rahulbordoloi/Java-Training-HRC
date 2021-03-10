@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item key="org.eclipse.jdt.ui.lastextjar" value="D:\Work\HRC\Java Training\struts-2.5.26\lib"/>
+	<item key="org.eclipse.jdt.ui.lastextjar" value="D:\Work\HRC\Java Training\JavaTrainingDemo\JavaServlets\WebContent\WEB-INF\lib"/>
 	<item key="TypeHierarchyViewPart.hierarchyview" value="2"/>
 	<item key="TypeHierarchyViewPart.qualifiednames" value="false"/>
 	<item key="TypeHierarchyViewPart.linkeditors" value="false"/>
@@ -32,7 +32,7 @@
 		<item key="updateTextualMatches" value="false"/>
 		<item key="updateQualifiedNames" value="false"/>
 		<item key="patterns" value="*"/>
-		<item key="renameSubpackages" value="false"/>
+		<item key="renameSubpackages" value="true"/>
 	</section>
 	<section name="SourceActionDialog.methods">
 		<item key="VisibilityModifier" value="1"/>
