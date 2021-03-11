@@ -1,0 +1,46 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.highradius.javaTraining.model.FilmPojo" table="film">
+
+		<meta attribute="class-description">
+			Film Table from Sakila Schema.
+		</meta>
+
+		<id name="filmId" type="java.lang.Integer" column="film_id">
+			<generator class="native" />
+		</id>
+
+		<property name="title" column="title" type="java.lang.String" />
+	            
+	    <property name="description" column="description" type="java.lang.String" />
+	            
+	    <property name="realeaseYear" column="release_year" type="java.lang.Integer" />
+	            
+		<property name="language" column="language" type="java.lang.String" />
+	
+	    <property name="director" column="director" type="java.lang.String" />
+	            
+	    <property name="rating" column="rating" type="java.lang.String" />
+			
+		<property name="origiLanguageName" column="original_language_id" type="java.lang.Integer" />
+	
+	    <property name="rentalDuration" column="rental_duration" type="java.lang.Integer" />
+	    
+	    <property name="rentalRate" column="rental_rate" type="java.lang.Float" />
+	         
+	    <property name="length" column="length" type="java.lang.Integer" />
+	          
+	    <property name="replacementCost" column="replacement_cost" type="java.lang.Float" />
+	           
+	    <property name="specialFeatures" column="special_features" type="java.lang.String" />
+	             
+	    <property name="lastUpdate" column="last_update" type="java.lang.String" />
+		
+	</class>
+	
+</hibernate-mapping>

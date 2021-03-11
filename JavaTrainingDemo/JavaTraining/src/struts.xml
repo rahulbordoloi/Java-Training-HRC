@@ -7,24 +7,24 @@
 
 	<package name="SakilaUI" extends="json-default">
 
-		<action name="GetSakila" class="com.highradius.struts.action.SakilaAction" method="getData">	
+		<action name="GetSakila" class="com.highradius.javaTraining.action.SakilaAction" method="getData">	
 			<result name="success" type="json">
 				<param name="root">dataResponse</param>
 			</result>
 			<result name="error">./error.jsp</result>	
 		</action>
 
-		<action name="AddSakila" class="com.highradius.struts.action.SakilaAction" method="addData">	
+		<action name="AddSakila" class="com.highradius.javaTraining.action.SakilaAction" method="addData">	
 			<result name="success">/index.jsp</result>	
 			<result name="error">./error.jsp</result>	
 		</action>
 
-		<action name="EditSakila" class="com.highradius.struts.action.SakilaAction" method="editData">	
+		<action name="EditSakila" class="com.highradius.javaTraining.action.SakilaAction" method="editData">	
 			<result name="success">/index.jsp</result>	
 			<result name="error">./error.jsp</result>	
 		</action>
 
-		<action name="DeleteSakila" class="com.highradius.struts.action.SakilaAction" method="deleteData">	
+		<action name="DeleteSakila" class="com.highradius.javaTraining.action.SakilaAction" method="deleteData">	
 			<result name="success">/index.jsp</result>	
 			<result name="error">./error.jsp</result>		
 		</action>

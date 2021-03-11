@@ -27,4 +27,6 @@
     <fullyQualifiedTypeName name="com.highradius.struts.controllers.SakilaDeleteData"/>
     <fullyQualifiedTypeName name="com.highradius.struts.controllers.SakilaEditData"/>
     <fullyQualifiedTypeName name="com.highradius.struts.dao.DAOImplementation"/>
+    <fullyQualifiedTypeName name="org.springframework.context.support.ClassPathXmlApplicationContext"/>
+    <fullyQualifiedTypeName name="org.springframework.context.ApplicationContext"/>
 </qualifiedTypeNameHistroy>
