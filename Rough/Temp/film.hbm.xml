@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.highradius.training.Model.Sakila_pojo" table="film">
+
+		<id name="filmId" 
+            type="java.lang.Integer"
+            column="film_id">
+			<generator class="native" />
+		</id>
+
+		<property name="title" 
+            column="title" 
+            type="java.lang.String" />
+            
+        <property name="description" 
+            column="description" 
+            type="java.lang.String" />
+            
+         <property name="realeaseYear" 
+            column="release_year" 
+            type="java.lang.Integer" />
+            
+       <many-to-one name="LanguageName" class="com.highradius.training.Model.LanguagePojo">
+			<column name="language_id"></column>
+		</many-to-one>
+            <property name="director" 
+            column="director" 
+            type="java.lang.String" />
+            <property name="rating" 
+            column="rating" 
+            type="java.lang.String" />
+		  <many-to-one name="origiLanguageName" class="com.highradius.training.Model.LanguagePojo">
+			<column name="original_language_id"></column>
+		</many-to-one>
+		<property name="rentalDuration" 
+            column="rental_duration" 
+            type="java.lang.Integer" />
+         <property name="rentalRate" 
+            column="rental_rate" 
+            type="java.lang.Float" />
+         <property name="length" 
+            column="length" 
+            type="java.lang.Integer" />
+          <property name="replacementCost" 
+            column="replacement_cost" 
+            type="java.lang.Float" />
+           <property name="specialFeatures" 
+            column="special_features" 
+            type="java.lang.String" />
+             <property name="lastUpdate" 
+            column="last_update" 
+            type="java.lang.String" />
+        
+	</class>
+</hibernate-mapping>
