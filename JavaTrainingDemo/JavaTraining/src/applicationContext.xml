@@ -5,8 +5,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans  
             http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="dao" class="com.highradius.javaTraining.SakilaDAO" />
+	<bean id="dao" class="com.highradius.javaTraining.daoImpl.SakilaDAO" />
 	
-	<bean id="manager" class="com.highradius.javaTraining.SakilaManager" autowire="byName" />
+	<bean id="manager" class="com.highradius.javaTraining.managerImpl.SakilaManager" autowire="byName" />
 
 </beans> 
