@@ -30,6 +30,8 @@
 		<property name="special_features" column="special_features" type="java.lang.String" />
 	
 	    <property name="director" column="director" type="java.lang.String" />
+	    
+	    <property name="isDeleted" column="isDeleted" type="boolean" not-null="true" />
 		
 	</class>
 	

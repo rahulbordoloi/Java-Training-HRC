@@ -2,6 +2,7 @@ package com.highradius.javaTraining.daoImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -10,6 +11,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import com.highradius.javaTraining.dao.DAOInterface;
 import com.highradius.javaTraining.model.FilmPojo;
@@ -28,6 +31,7 @@ public class SakilaDAO implements DAOInterface {
 	
 	// Response and Helper Variables
 	private List<FilmPojo> list = new ArrayList<>();
+	private List<FilmPojo> arr = new ArrayList<>();
 	private List<LanguagePojo> langList = new ArrayList<LanguagePojo>();
 	private boolean success = true;
 	private HashMap<String, Object> responseData = new HashMap<>();
@@ -55,15 +59,17 @@ public class SakilaDAO implements DAOInterface {
 	// Helper Method to Get Language Name
 	public Integer getLanguageId(String languageName) {
 		
-		this.session =  this.getSession().openSession();
 		
-		// Running HQL Query
-//		this.query = this.session.createQuery("SELECT language_id FROM Lang WHERE name = :language");
-//		this.query.setString("start", languageName);
-//		return (Integer) this.query.uniqueResult();
+		Session sessionLang = getSession().openSession();
 		
-		this.query = this.session.createQuery("SELECT language_id FROM LanguagePojo WHERE name = '" + languageName + "'");
-		return (Integer) this.query.uniqueResult();
+		// // Running HQL Query
+		// this.query = this.session.createQuery("SELECT language_id FROM LanguagePojo WHERE name = :language");
+		// this.query.setString("start", languageName);
+		// return (Integer) this.query.uniqueResult();
+		
+		Query queryLang = sessionLang.createQuery("SELECT language_id FROM LanguagePojo WHERE name = '" + languageName + "'");
+
+		return (Integer) queryLang.uniqueResult();
 		
 	}
 		
@@ -84,9 +90,31 @@ public class SakilaDAO implements DAOInterface {
 		// Acquiring Data From Object using ORM and Adding Criterias [Filter] to our Result
 		try {
 			
+			// Executing Query and Adding Filters [Criteria]
 			System.out.println("Executing Query...");
 			this.criteria = this.session.createCriteria(FilmPojo.class);
+			this.criteria.add(Restrictions.eq("isDeleted", false));
+//			this.criteria.setFirstResult(start);
+//			this.criteria.setMaxResults(limit);
+			this.criteria.addOrder(Order.asc("film_id"));
 			this.list = this.criteria.list();
+			
+			// Mending the Results according to our Requirements
+			for (Iterator<FilmPojo> iterator = list.iterator(); iterator.hasNext(); ) {
+				
+				FilmPojo filmObj = (FilmPojo) iterator.next();
+				FilmPojo  acutalObj = new FilmPojo();
+				acutalObj.setFilm_id(filmObj.getFilm_id());
+				acutalObj.setDescription(filmObj.getDescription());
+				acutalObj.setDirector(filmObj.getDirector());
+				acutalObj.setLanguage_name(filmObj.getLanguage().getName());
+				acutalObj.setRating(filmObj.getRating());
+				acutalObj.setRelease_year(filmObj.getRelease_year());
+				acutalObj.setTitle(filmObj.getTitle());
+				acutalObj.setSpecial_features(filmObj.getSpecial_features());
+				arr.add(acutalObj);
+				
+			 }
 			
 		} catch(Exception e) {
 			
@@ -103,9 +131,11 @@ public class SakilaDAO implements DAOInterface {
 		
 		// Converting the HashMap into Response
 		this.responseData.put("success", true);
-		this.responseData.put("totalCount", this.list.size());
-		this.responseData.put("filmData", this.list);
-		System.out.println("Response Prepared!");
+//		this.responseData.put("totalCount", this.list.size()); 
+//		this.responseData.put("filmData", this.list);
+		this.responseData.put("totalCount", this.arr.size());
+		this.responseData.put("filmData", this.arr);
+		System.out.println("Response Prepared for getData()!");
 		
 		return this.responseData;
 		
@@ -147,11 +177,9 @@ public class SakilaDAO implements DAOInterface {
 
 		// Converting the HashMap into Response
 		this.responseData.put("success", true);
-//		responseData.put("lang_list", langList);
-//		responseData.put("count", langList.size());
 		this.responseData.put("totalCount", this.langList.size());
-		this.responseData.put("lang_list", this.langList);
-		System.out.println("Response Prepared!");
+		this.responseData.put("langData", this.langList);
+		System.out.println("Response Prepared for geLangData()!");
 				
 		return this.responseData;
 		
@@ -160,6 +188,7 @@ public class SakilaDAO implements DAOInterface {
 	/* ####################################################################################
 	#                           `addData` Execute Function                                #
 	#################################################################################### */
+	
 	public HashMap<String, Object> addSakilaData(FilmPojo obj) {
 		
 		System.out.println("*".repeat(50));
@@ -173,7 +202,7 @@ public class SakilaDAO implements DAOInterface {
 		// ORM Operations
 		try {
 			
-			// Acquiring Language Name from Language Model Object
+			// Acquiring Language ID from Language Model Object
 			LanguagePojo langObj = (LanguagePojo) this.session.load(LanguagePojo.class, this.getLanguageId(obj.getLanguage_name())); 
 			obj.setLanguage(langObj);
 			
@@ -224,7 +253,7 @@ public class SakilaDAO implements DAOInterface {
 		// ORM Operations
 		try {
 			
-			// Acquiring Language Name from Language Model Object
+			// Acquiring Language ID from Language Model Object
 			LanguagePojo langObj = (LanguagePojo) session.load(LanguagePojo.class, getLanguageId(obj.getLanguage_name())); 
 			obj.setLanguage(langObj);
 			
@@ -261,7 +290,7 @@ public class SakilaDAO implements DAOInterface {
 	/* ####################################################################################
 	#                         `deleteData` Execute Function                               #
 	#################################################################################### */
-	@SuppressWarnings("deprecation")
+	
 	public HashMap<String, Object> deleteSakilaData(String del_filmIds) {
 		
 		System.out.println("*".repeat(50));
@@ -290,12 +319,13 @@ public class SakilaDAO implements DAOInterface {
 			for(int id : filmIdList) {
 							
 				// HQL Query String Generation
-				this.hql  = "DELETE FROM film WHERE filmId = :film_id";
+//				this.hql  = "DELETE FROM film WHERE film_id = :film_id";
+				this.hql  = "UPDATE FilmPojo SET isDeleted = 1 WHERE film_id = :filmid";
 				this.query = this.session.createQuery(hql);
-				this.query.setInteger("film_id", id);
+				this.query.setInteger("filmid", id);
 				
 				// Execute HQL Query
-				System.out.println("Query Associated: " + this.query);
+				// System.out.println("Query Associated: " + this.query);
 				System.out.println("Executing Query...");
 				this.query.executeUpdate();
 
@@ -303,10 +333,7 @@ public class SakilaDAO implements DAOInterface {
 			
 			// Commiting the Transaction
 			this.transaction.commit();
-			System.out.println(String.format("Query Sucessful! Deleted %d Row(s) from DB.", filmIdList.size()));
-							
-			// Closing Transaction Session
-			this.session.close();
+			System.out.println(String.format("Query Sucessful! Deleted %d Row(s) from DB.", filmIdList.size()));			
 			
 		} catch (Exception e) {
 			

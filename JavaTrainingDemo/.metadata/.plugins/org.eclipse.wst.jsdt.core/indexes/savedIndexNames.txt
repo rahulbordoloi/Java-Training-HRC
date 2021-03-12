@@ -2,7 +2,6 @@ INDEX VERSION 1.4+D:\Work\HRC\Java Training\JavaTrainingDemo\.metadata\.plugins\
 2549720281.index
 189153609.index
 3361483901.index
-1600785614.index
 1091408699.index
 710928042.index
 776178153.index

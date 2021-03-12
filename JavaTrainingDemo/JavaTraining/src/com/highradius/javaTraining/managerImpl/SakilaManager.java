@@ -8,28 +8,33 @@ import com.highradius.javaTraining.model.FilmPojo;
 
 public class SakilaManager implements SakilaManagerInterface {
 	
+	// Sakila DAO Object Instance
 	private SakilaDAO sakilaDao;
 	
-	public SakilaDAO getManagerDao() {
+	public SakilaDAO getSakilaDao() {
 		return sakilaDao;
 	}
 
-	public void setManagerDao(SakilaDAO sakilaDao) {
+	public void setSakilaDao(SakilaDAO sakilaDao) {
 		this.sakilaDao = sakilaDao;
 	}
-	
+
+	// Data Sanity Check for NULL [Handling Corner Cases]
 	public FilmPojo dataSanityCheck(FilmPojo obj) {
 		
 		if(obj.getDescription() == "")
 			obj.setDescription(null);
+		if(obj.getRelease_year() == null ||  obj.getRelease_year() == 0)
+			obj.setRelease_year(null);
+		if(obj.getLanguage_name() == "")
+			obj.setLanguage_name("English");
+		if(obj.getDirector() == "")
+			obj.setDirector(null);
 		if(obj.getRating() == "")
 			obj.setRating(null);
 		if(obj.getSpecial_features() == "")
 			obj.setSpecial_features(null);
-		else
-			obj.setSpecial_features(obj.getSpecial_features().replaceAll("[,]\\s+", ","));
-		if(obj.getRelease_year() == "")
-			obj.setRelease_year(null);
+
 		return obj;
 		
 	}

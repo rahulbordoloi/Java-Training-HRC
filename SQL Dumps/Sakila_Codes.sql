@@ -87,3 +87,7 @@ WHERE film_id = 1008;
 ## Delete Check
 # Testing out Delete Statement
 DELETE FROM film WHERE film_id = "1009";
+
+# Altering Table for Hibernate
+ALTER TABLE film DROP COLUMN isDeleted;
+ALTER TABLE film MODIFY isDeleted BOOLEAN NOT NULL DEFAULT 0;

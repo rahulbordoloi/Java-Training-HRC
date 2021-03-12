@@ -8,7 +8,7 @@
 Ext.define('Movies', {
     extend: 'Ext.data.Model',
     pageSize : 15,
-    fields: ['film_id', 'title', 'description', 'release_year', 'language', 'director', 'rating', 'special_features']
+    fields: ['film_id', 'title', 'description', 'release_year', 'language_name', 'director', 'rating', 'special_features']
 });
 
 // `filmStore` Store Object to Extract Object after AJAX Call
@@ -23,13 +23,13 @@ var filmStore = Ext.create('Ext.data.Store', {
         enablePaging: true, 
         reader: {
             type: 'json',
-            transform: function(records) {
-                // let filmData = row.filmData
-                // row.filmData = JSON.parse(filmData)
-                // return row
-                let filmData = JSON.parse(records)
-                return filmData
-            },
+            // transform: function(records) {
+            //     // let filmData = row.filmData
+            //     // row.filmData = JSON.parse(filmData)
+            //     // return row
+            //     let filmData = JSON.parse(records)
+            //     return filmData
+            // },
             rootProperty: "filmData",
             totalProperty: "totalCount",
             successProperty: 'success'
@@ -72,6 +72,37 @@ var languageDropDown = Ext.create('Ext.data.Store', {
 });
 
 languageDropDown.load();
+
+// // Reference Model to Create ComboBox for Language Dropdown
+// var languageModel = Ext.define('languageModel', {
+//     extend: 'Ext.data.Model',
+//     fields: ['language_id, name']
+// });
+
+// // `languageDropDown` Store Object for Language Combobox
+// var languageDropDown = Ext.create('Ext.data.Store', {
+//     model:  languageModel,
+//     proxy: {
+//         type: 'ajax',
+//         url : '/JavaTraining/GetSakilaLanguage.action',
+//         reader: {
+//             type: 'json',
+//             // transform: function(records) {
+//             //     // let filmData = row.filmData
+//             //     // row.filmData = JSON.parse(filmData)
+//             //     // return row
+//             //     let filmData = JSON.parse(records)
+//             //     return filmData
+//             // },
+//             rootProperty: "langData",
+//             totalProperty: "totalCount",
+//             successProperty: 'success'
+//         }
+//     },
+//     autoLoad: true
+// });
+
+// languageDropDown.load();
 
 // Reference Model to Create ComboBox for rating Dropdown
 var ratingModel = Ext.define('ratingsM', {
@@ -154,8 +185,10 @@ var addWindow = Ext.create('Ext.window.Window', {
             fieldLabel: 'Language',
             store: languageDropDown,
             queryMode: 'local',
+            // displayField: 'name',
+            // valueField: 'name',
             displayField: 'languageSelection',
-            name: 'language',
+            name: 'language_name',
             id: 'movie_language'
         }, {
             xtype : 'textfield',
@@ -258,8 +291,10 @@ var editWindow = Ext.create('Ext.window.Window', {
             fieldLabel: 'Language',
             store: languageDropDown,
             queryMode: 'local',
+            // displayField: 'name',
+            // valueField: 'name',
             displayField: 'languageSelection',
-            name: 'language',
+            name: 'language_name',
             id: 'editLanguage'
         }, {
             xtype : 'textfield',
@@ -466,11 +501,12 @@ Ext.onReady(function () {
                         },
                         items: [{
                             xtype: 'datefield',
-                            format: 'Y',
+                            // format: 'Y',
                             // xtype: 'textfield',
                             fieldLabel: 'Release Year',
                             name: 'release_year',
-                            id: 'releaseYear'
+                            id: 'releaseYear',
+                            renderer: Ext.util.Format.dateRenderer('Y')
                         }, {
                             xtype: 'splitter',
                             margin: '0 10 0 10'
@@ -479,8 +515,10 @@ Ext.onReady(function () {
                             fieldLabel: 'Language',
                             store: languageDropDown,
                             queryMode: 'local',
+                            // displayField: 'name',
+                            // valueField: 'name',
                             displayField: 'languageSelection',
-                            name: 'language',
+                            name: 'language_name',
                             id: 'language_combo'
                         }]
                     }],
@@ -539,13 +577,13 @@ Ext.onReady(function () {
                                 filmStore.load().filter('release_year', formInfo.releaseYear_);
                             } 
                             else if (!formInfo.movieName_ && !formInfo.directorName_ && !formInfo.releaseYear_ && formInfo.language_) {                                 
-                                filmStore.load().filter('language', formInfo.language_);
+                                filmStore.load().filter('language_name', formInfo.language_);
                             } 
                             else if(formInfo.movieName_ && formInfo.directorName_ && formInfo.releaseYear_ && formInfo.language_) {
                                 var filtersSearch = [
                                     new Ext.util.Filter({
                                         filterFn: function(item) {
-                                            return item.get('title') == formInfo.movieName_ && item.get('director') == formInfo.directorName_ && item.get('release_year') == formInfo.releaseYear_ && item.get('language') == formInfo.language_;
+                                            return item.get('title') == formInfo.movieName_ && item.get('director') == formInfo.directorName_ && item.get('release_year') == formInfo.releaseYear_ && item.get('language_name') == formInfo.language_;
                                         }
                                     })
                                 ];
@@ -601,7 +639,7 @@ Ext.onReady(function () {
                 }, {
                     text: 'Language',
                     flex: 1,
-                    dataIndex: 'language'
+                    dataIndex: 'language_name'
                 }, {
                     text: 'Director',
                     flex: 1,

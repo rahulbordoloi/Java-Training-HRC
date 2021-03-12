@@ -9,12 +9,13 @@ public class FilmPojo {
 	private Integer film_id;
 	private String title;
 	private String description;
-	private String release_year;
+	private Long release_year;
 	private LanguagePojo language;
 	private String language_name;
 	private String rating;
 	private String special_features;
 	private String director;
+	private boolean isDeleted;
 	
 	
 	// Default Constructor
@@ -23,7 +24,7 @@ public class FilmPojo {
 	}
 	
 	// Defining Parameterized Constructor
-	public FilmPojo(Integer film_id, String title, String description, String release_year, String rating, String special_features, String director, LanguagePojo language) {
+	public FilmPojo(Integer film_id, String title, String description, Long release_year, String rating, String special_features, String director, LanguagePojo language, boolean isDeleted) {
 		
 		super();
 		this.film_id = film_id;
@@ -34,6 +35,7 @@ public class FilmPojo {
 		this.rating = rating;
 		this.special_features = special_features;
 		this.director = director;
+		this.isDeleted = isDeleted;
 		
 	}
 	
@@ -62,11 +64,11 @@ public class FilmPojo {
 		this.description = description;
 	}
 
-	public String getRelease_year() {
+	public Long getRelease_year() {
 		return release_year;
 	}
 
-	public void setRelease_year(String release_year) {
+	public void setRelease_year(Long release_year) {
 		this.release_year = release_year;
 	}
 
@@ -109,5 +111,14 @@ public class FilmPojo {
 	public void setDirector(String director) {
 		this.director = director;
 	}
+	
+	public boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
 	
 }

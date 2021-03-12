@@ -7,27 +7,22 @@
 
 	<package name="SakilaUI" extends="json-default">
 
-		<action name="GetSakila" class="com.highradius.javaTraining.action.SakilaAction" method="getData">	
+		<global-results>
 			<result name="success" type="json">
-				<param name="root">dataResponse</param>
+					<param name="root">dataResponse</param>
 			</result>
-			<result name="error">./error.jsp</result>	
-		</action>
+			<result name="error">./error.jsp</result>
+		</global-results>
 
-		<action name="AddSakila" class="com.highradius.javaTraining.action.SakilaAction" method="addData">	
-			<result name="success">/index.jsp</result>	
-			<result name="error">./error.jsp</result>	
-		</action>
+		<action name="GetSakila" class="com.highradius.javaTraining.action.SakilaAction" method="getData"></action>
 
-		<action name="EditSakila" class="com.highradius.javaTraining.action.SakilaAction" method="editData">	
-			<result name="success">/index.jsp</result>	
-			<result name="error">./error.jsp</result>	
-		</action>
+		<action name="GetSakilaLanguage" class="com.highradius.javaTraining.action.SakilaAction" method="getLangData"></action>
 
-		<action name="DeleteSakila" class="com.highradius.javaTraining.action.SakilaAction" method="deleteData">	
-			<result name="success">/index.jsp</result>	
-			<result name="error">./error.jsp</result>		
-		</action>
+		<action name="AddSakila" class="com.highradius.javaTraining.action.SakilaAction" method="addData"></action>	
+
+		<action name="EditSakila" class="com.highradius.javaTraining.action.SakilaAction" method="editData"></action>	
+	
+		<action name="DeleteSakila" class="com.highradius.javaTraining.action.SakilaAction" method="deleteData"></action>	
 
 	</package>
 
