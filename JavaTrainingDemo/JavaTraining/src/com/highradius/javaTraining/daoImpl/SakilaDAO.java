@@ -72,12 +72,23 @@ public class SakilaDAO implements DAOInterface {
 		return (Integer) queryLang.uniqueResult();
 		
 	}
+
+	// Helper Method to Get Total Number of Rows
+	public Long getTotalRows() {
+		
+		Session sessionRows = getSession().openSession();
+		// Query queryRows = sessionRows.createSQLQuery("SELECT COUNT(*) FROM film");
+		Query queryRows = sessionRows.createQuery("SELECT COUNT(*) FROM FilmPojo");
+	
+		return (Long) queryRows.uniqueResult();
+			
+	}
 		
     /* ####################################################################################
 	#                           `getData` Execute Function                                #
 	#################################################################################### */
 	@SuppressWarnings({ "unchecked" })
-	public HashMap<String, Object> getSakilaData() {
+	public HashMap<String, Object> getSakilaData(Integer start, Integer limit) {
 		
 		System.out.println("*".repeat(50));
 		System.out.println("Calling GetData Action...");
@@ -94,8 +105,8 @@ public class SakilaDAO implements DAOInterface {
 			System.out.println("Executing Query...");
 			this.criteria = this.session.createCriteria(FilmPojo.class);
 			this.criteria.add(Restrictions.eq("isDeleted", false));
-//			this.criteria.setFirstResult(start);
-//			this.criteria.setMaxResults(limit);
+			this.criteria.setFirstResult(start);
+			this.criteria.setMaxResults(limit);
 			this.criteria.addOrder(Order.asc("film_id"));
 			this.list = this.criteria.list();
 			
@@ -131,9 +142,8 @@ public class SakilaDAO implements DAOInterface {
 		
 		// Converting the HashMap into Response
 		this.responseData.put("success", true);
-//		this.responseData.put("totalCount", this.list.size()); 
-//		this.responseData.put("filmData", this.list);
-		this.responseData.put("totalCount", this.arr.size());
+		// this.responseData.put("totalCount", this.arr.size());
+		this.responseData.put("totalCount", this.getTotalRows());
 		this.responseData.put("filmData", this.arr);
 		System.out.println("Response Prepared for getData()!");
 		

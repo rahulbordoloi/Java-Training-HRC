@@ -426,6 +426,10 @@ var deleteWindow = Ext.create('Ext.window.Window', {
 
 // Main UI Rendering Function
 Ext.onReady(function () {
+
+    // Showing a Greeting Message on Application Startup
+    Ext.Msg.alert('Sakila ExtJs UI', 'Welcome to my Hibernate Project!');
+    
     Ext.create('Ext.container.Viewport', {
         "requires": [
             "font-pictos"
@@ -443,7 +447,7 @@ Ext.onReady(function () {
                 align: 'middle'
             },
             items: [{
-                title: 'Movie Advance Search',
+                title: 'Movie Advanced Search',
                 region: 'center',
                 xtype: 'panel',
                 layout: {
@@ -501,12 +505,11 @@ Ext.onReady(function () {
                         },
                         items: [{
                             xtype: 'datefield',
-                            // format: 'Y',
+                            format: 'Y',
                             // xtype: 'textfield',
                             fieldLabel: 'Release Year',
                             name: 'release_year',
                             id: 'releaseYear',
-                            renderer: Ext.util.Format.dateRenderer('Y')
                         }, {
                             xtype: 'splitter',
                             margin: '0 10 0 10'

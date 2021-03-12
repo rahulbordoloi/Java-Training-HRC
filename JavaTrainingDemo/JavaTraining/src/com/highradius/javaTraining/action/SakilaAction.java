@@ -28,7 +28,7 @@ public class SakilaAction extends FilmPojo {
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			SakilaManager sakilaManager = (SakilaManager) context.getBean("Manager");
 			
-			dataResponse = sakilaManager.getSakilaData();
+			dataResponse = sakilaManager.getSakilaData(getStart(), getLimit());
 		
 		} catch(Exception e) {
 			

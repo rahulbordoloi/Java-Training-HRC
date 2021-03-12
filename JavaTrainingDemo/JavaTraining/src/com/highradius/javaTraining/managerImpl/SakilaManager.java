@@ -39,9 +39,9 @@ public class SakilaManager implements SakilaManagerInterface {
 		
 	}
 
-	public HashMap<String, Object> getSakilaData() {
+	public HashMap<String, Object> getSakilaData(Integer start, Integer limit) {
 		
-		return sakilaDao.getSakilaData();
+		return sakilaDao.getSakilaData(start, limit);
 		
 	}
 	
