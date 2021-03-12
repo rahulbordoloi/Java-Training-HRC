@@ -8,5 +8,7 @@
 	<bean id="DAO" class="com.highradius.javaTraining.daoImpl.SakilaDAO" />
 	
 	<bean id="Manager" class="com.highradius.javaTraining.managerImpl.SakilaManager" autowire="byName" />
+	
+	<bean id="Movies" class="com.highradius.javaTraining.model.FilmPojo"/>
 
 </beans> 

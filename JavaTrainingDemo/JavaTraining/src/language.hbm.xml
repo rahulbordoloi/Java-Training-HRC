@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	
+	<class name="com.highradius.javaTraining.model.LanguagePojo" table="language">
+	
+	    <id name="language_id" type="java.lang.Integer" column="language_id">
+	      <generator class="native"/>
+	    </id>
+
+		<property name="name" column ="name" type="java.lang.String" />
+				
+		<property name="last_update" column="last_update" type="java.lang.String" />
+            
+	</class>
+	
+</hibernate-mapping>

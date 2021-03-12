@@ -15,6 +15,7 @@
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
 		 <mapping resource="film.hbm.xml"></mapping> 
+		 <mapping resource="language.hbm.xml"></mapping> 
 		 
 	</session-factory>
 	

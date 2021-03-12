@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+   "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+<package name="default" extends="json-default">
+		<global-results>
+		<result name="success" type="json">
+		        <param name="noCache">true</param>
+		        <param name="excludeNullProperties">true</param>
+		        <param name="contentType">application/json</param>
+		        <param name="characterEncoding">UTF-8</param>
+		        <param name="root">result</param>
+		</result>
+		</global-results>
+		<action name="load"
+			class="org.highradius.action.MoviesAction"
+			method = "loadData">
+		</action>
+		
+		<action name="langload"
+			class="org.highradius.action.MoviesAction"
+			method = "langData">
+		</action>
+		<action name="add"
+			class="org.highradius.action.MoviesAction"
+			method = "addData">
+		</action>
+		<action name="edit"
+			class="org.highradius.action.MoviesAction"
+			method = "editData">
+		</action>
+		<action name="delete"
+			class="org.highradius.action.MoviesAction"
+			method = "deleteData">
+		</action>
+	</package>
+</struts>
