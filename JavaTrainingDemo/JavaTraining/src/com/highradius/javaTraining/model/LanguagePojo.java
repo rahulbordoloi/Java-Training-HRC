@@ -1,18 +1,21 @@
 package com.highradius.javaTraining.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LanguagePojo {
 	
 	// Setting in the DataTypes of the Columns
-	private Integer id;
+	private Integer language_id;
 	private String name;
-	private String lastUpdate;
+	private Set<FilmPojo> movie = new HashSet<FilmPojo>();
 	
 	// Getters and Setters
-	public Integer getId() {
-		return id;
+	public Integer getLanguage_id() {
+		return language_id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setLanguage_id(Integer language_id) {
+		this.language_id = language_id;
 	}
 	public String getName() {
 		return name;
@@ -20,11 +23,11 @@ public class LanguagePojo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getLastUpdate() {
-		return lastUpdate;
+	public Set<FilmPojo> getMovie() {
+		return movie;
 	}
-	public void setLastUpdate(String lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+	public void setMovie(Set<FilmPojo> movie) {
+		this.movie = movie;
+	}	
 	
 }

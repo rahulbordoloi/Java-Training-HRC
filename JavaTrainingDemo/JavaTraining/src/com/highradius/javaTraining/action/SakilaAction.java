@@ -16,11 +16,11 @@ public class SakilaAction extends FilmPojo {
 	private String del_filmIds;
 	
 	// Response Parameter
-	private String dataResponse;
+	private HashMap<String, Object> dataResponse = new HashMap<String, Object>();
 	
 	// <--------------- Execute Methods ---------------> //
 	
-	// GetData Method
+	// GetData Method [DB Table]
 	public String getData() {
 		
 		try {
@@ -28,9 +28,28 @@ public class SakilaAction extends FilmPojo {
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			SakilaManager sakilaManager = (SakilaManager) context.getBean("Manager");
 			
-			HashMap<String, Object> data = sakilaManager.geSakilaData(start, limit);
-			Gson gson = new Gson();
-			setDataResponse(gson.toJson(data));
+			dataResponse = sakilaManager.getSakilaData();
+		
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			return "error";
+			
+		}
+		
+		return "success";
+		
+	}
+	
+	//GetLangData Method
+	public String getLangData() {
+		
+		try {
+
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			SakilaManager sakilaManager = (SakilaManager) context.getBean("Manager");
+			
+			dataResponse = sakilaManager.getSakilaLangData();
 		
 		} catch(Exception e) {
 			
@@ -49,19 +68,19 @@ public class SakilaAction extends FilmPojo {
 		try {
 			
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			FilmPojo film = (FilmPojo) context.getBean("Movies");
+			
+			film.setTitle(getTitle());
+			film.setDescription(getDescription());
+			film.setDirector(getDirector());
+			film.setFilm_id(getFilm_id());
+			film.setLanguage_name(getLanguage_name());
+			film.setRating(getRating());
+			film.setRelease_year(getRelease_year());
+			film.setSpecial_features(getSpecial_features());
+			
 			SakilaManager sakilaManager = (SakilaManager) context.getBean("Manager");
-			
-			FilmPojo obj = new FilmPojo();
-			obj.setTitle(getTitle());
-			obj.setDescription(getDescription());
-			obj.setDirector(getDirector());
-			obj.setFilm_id(getFilm_id());
-			obj.setLanguage(getLanguage());
-			obj.setRating(getRating());
-			obj.setRelease_year(getRelease_year());
-			obj.setSpecial_features(getSpecial_features());
-			
-			sakilaManager.addSakilaData(obj);
+			dataResponse = sakilaManager.addSakilaData(film);
 			
 		} catch(Exception e) {
 			
@@ -80,19 +99,20 @@ public class SakilaAction extends FilmPojo {
 		try {
 			
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			FilmPojo film = (FilmPojo) context.getBean("Movies");
+			
+			film.setTitle(getTitle());
+			film.setDescription(getDescription());
+			film.setDirector(getDirector());
+			film.setFilm_id(getFilm_id());
+			film.setLanguage_name(getLanguage_name());
+			film.setRating(getRating());
+			film.setRelease_year(getRelease_year());
+			film.setSpecial_features(getSpecial_features());
+			
+			
 			SakilaManager sakilaManager = (SakilaManager) context.getBean("Manager");
-			
-			FilmPojo obj = new FilmPojo();
-			obj.setTitle(getTitle());
-			obj.setDescription(getDescription());
-			obj.setDirector(getDirector());
-			obj.setFilm_id(getFilm_id());
-			obj.setLanguage(getLanguage());
-			obj.setRating(getRating());
-			obj.setRelease_year(getRelease_year());
-			obj.setSpecial_features(getSpecial_features());
-			
-			sakilaManager.editSakilaData(obj);
+			dataResponse = sakilaManager.editSakilaData(film);
 			
 		} catch(Exception e) {
 			
@@ -112,7 +132,7 @@ public class SakilaAction extends FilmPojo {
 			
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			SakilaManager sakilaManager = (SakilaManager) context.getBean("Manager");
-			sakilaManager.deleteSakilaData(del_filmIds);
+			dataResponse = sakilaManager.deleteSakilaData(getDel_filmIds());
 		
 		} catch(Exception e) {
 			
@@ -149,13 +169,12 @@ public class SakilaAction extends FilmPojo {
 		this.del_filmIds = del_filmIds;
 	}
 
-	public String getDataResponse() {
+	public HashMap<String, Object> getDataResponse() {
 		return dataResponse;
 	}
 
-	public void setDataResponse(String dataResponse) {
+	public void setDataResponse(HashMap<String, Object> dataResponse) {
 		this.dataResponse = dataResponse;
-	}
-	
+	}	
 	
 }

@@ -13,6 +13,7 @@
 		<property name="hibernate.connection.password">root</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hbm2ddl.auto">update</property>
 
 		 <mapping resource="film.hbm.xml"></mapping> 
 		 <mapping resource="language.hbm.xml"></mapping> 

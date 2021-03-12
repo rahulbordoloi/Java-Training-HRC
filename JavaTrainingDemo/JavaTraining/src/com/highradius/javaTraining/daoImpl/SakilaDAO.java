@@ -1,23 +1,15 @@
 package com.highradius.javaTraining.daoImpl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Order;
 
 import com.highradius.javaTraining.dao.DAOInterface;
 import com.highradius.javaTraining.model.FilmPojo;
@@ -31,260 +23,187 @@ public class SakilaDAO implements DAOInterface {
 	private Transaction transaction = null;
 	private String hql = "";
 	private Query query = null;
-	private Criteria critera = null;
+	private Criteria criteria = null;
+	private Configuration config = null;
 	
-	// Response Variables
-	private ArrayList<FilmPojo> arr = new ArrayList<>();
+	// Response and Helper Variables
+	private List<FilmPojo> list = new ArrayList<>();
+	private List<LanguagePojo> langList = new ArrayList<LanguagePojo>();
+	private boolean success = true;
 	private HashMap<String, Object> responseData = new HashMap<>();
-	private int numberOfRows = 0;
-	private List result;
+	
+	// Session Factory Method
+	@SuppressWarnings("deprecation")
+	public SessionFactory getSession() {
 
+		try {
+			
+			 this.config = new Configuration();
+			 this.config.configure("hibernate.cfg.xml");
+			 this.factory = this.config.buildSessionFactory();  
+		
+			} catch(Exception e) {
+				
+				e.printStackTrace();
+				
+			}
+		
+		return this.factory;
+		
+	}
+	
 	// Helper Method to Get Language Name
 	public Integer getLanguageId(String languageName) {
-
-		// Opening a Session using Hibernate
-		this.factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-		this.session = this.factory.openSession();
-
+		
+		this.session =  this.getSession().openSession();
+		
 		// Running HQL Query
-		this.query = this.session.createQuery("SELECT language_id FROM Lang WHERE name = :language");
-		this.query.setString("start", languageName);
+//		this.query = this.session.createQuery("SELECT language_id FROM Lang WHERE name = :language");
+//		this.query.setString("start", languageName);
+//		return (Integer) this.query.uniqueResult();
+		
+		this.query = this.session.createQuery("SELECT language_id FROM LanguagePojo WHERE name = '" + languageName + "'");
 		return (Integer) this.query.uniqueResult();
-
+		
 	}
 		
     /* ####################################################################################
 	#                           `getData` Execute Function                                #
 	#################################################################################### */
-	@SuppressWarnings("deprecation")
-	public HashMap<String, Object> geSakilatData(Integer start, Integer limit) {
+	@SuppressWarnings({ "unchecked" })
+	public HashMap<String, Object> getSakilaData() {
 		
 		System.out.println("*".repeat(50));
 		System.out.println("Calling GetData Action...");
 		System.out.println("*".repeat(50));
-
-		// DB Connection
+		
+		// Hibernate Connectivity
+		System.out.println("Checking for Hibernate Session Connection: " + this.getSession().openSession().isConnected());
+		this.session = this.getSession().openSession();
+		
+		// Acquiring Data From Object using ORM and Adding Criterias [Filter] to our Result
 		try {
 			
-			// Opening a Session using Hibernate
-	       	this.factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-			this.session = this.factory.openSession();
-			
-			// Opening up Transaction Session and Criteria
-			this.transaction = this.session.beginTransaction();
-//			this.critera = this.session.createCriteria(FilmPojo.class);
-//			this.critera.addOrder(Order.asc("film_id"));
-//			this.critera.setFirstResult(start);
-//			this.critera.setMaxResults(limit);
-			
-			// Checking out for Pagination Requests
-			Integer nullFlag;
-			if((start == null) || (limit == null))
-				nullFlag = 1;
-			else
-				nullFlag = 0;
-					
-			// HQL Query String Generation
-			this.hql = "SELECT \r\n"
-					+ "film_data.film_id,\r\n"
-					+ "film_data.title,\r\n"
-					+ "film_data.description,\r\n"
-					+ "film_data.release_year,\r\n"
-					+ "lang.name AS `language`,\r\n"
-					+ "film_data.original_language_id,\r\n"
-					+ "film_data.rental_duration,\r\n"
-					+ "film_data.rental_rate,\r\n"
-					+ "film_data.length,\r\n"
-					+ "film_data.replacement_cost,\r\n"
-					+ "film_data.rating,\r\n"
-					+ "film_data.special_features,\r\n"
-					+ "film_data.last_update,\r\n"
-					+ "film_data.director\r\n"
-					+ "FROM film AS film_data\r\n"
-					+ "LEFT JOIN `language` AS lang ON film_data.language_id = lang.language_id;"; 
-					
-			// If START and LIMIT are NOT Defined.
-			if(nullFlag == 1)
-				this.query = this.session.createQuery(this.hql);
-
-			// If START and LIMIT are Defined.
-			else {
-			
-				this.hql = this.hql.replaceAll(";", "") + "\r\nLIMIT :start, :limit;";
-				this.query = this.session.createQuery(this.hql);
-				this.query.setInteger("start", start);
-				this.query.setInteger("limit", limit);
-
-			}
-					
-			// Execute SQL Query
 			System.out.println("Executing Query...");
-			// Iterator result = this.query.list().iterator();
-			result = this.query.list();
+			this.criteria = this.session.createCriteria(FilmPojo.class);
+			this.list = this.criteria.list();
 			
-			// Extract Data from Result [Iterator]
-			// for(Iterator iterator = result.iterator(); iterator.hasNext();) {
-			for(int i = 0; i < result.size(); i++) {
-				
-				// FilmPojo objIterator = (FilmPojo) iterator.next();
-				FilmPojo obj = new FilmPojo();
-				
-				Object[] object = (Object[]) result.get(i);
-				
-				obj.setFilm_id((int) object[0]);
-				obj.setTitle((String) object[1]);
-				obj.setDescription((String) object[2]);
-				obj.setRelease_year((long) object[3]);
-				obj.setLanguage((String) object[4]);
-				obj.setOriginal_language_id((int) object[5]);
-				obj.setRental_rate((double) object[6]);
-				obj.setLength((long) object[7]);
-				obj.setReplacement_cost((double) object[8]);
-				obj.setRating((String) object[9]);
-				obj.setLast_update((java.sql.Date) object[10]);
-				obj.setDirector((String) object[11]);
-				
-//				obj.setFilm_id(objIterator.getFilm_id());
-//				obj.setTitle(objIterator.getTitle());
-//				obj.setDescription(objIterator.getDescription());
-//				obj.setRelease_year(objIterator.getRelease_year());
-//				obj.setLanguage(objIterator.getLanguage());
-//				obj.setOriginal_language_id(objIterator.getOriginal_language_id());
-//				obj.setRental_rate(objIterator.getRental_rate());
-//				obj.setLength(objIterator.getLength());
-//				obj.setReplacement_cost(objIterator.getReplacement_cost());
-//				obj.setRating(objIterator.getRating());
-//				obj.setLast_update(objIterator.getLast_update());
-//				obj.setDirector(objIterator.getDirector());
-				
-//				obj.setFilm_id(objIterator.getInteger("film_id"));
-//				obj.setTitle(rS.getString("title"));
-//				obj.setDescription(rS.getString("description"));
-//				obj.setRelease_year(rS.getLong("release_year"));
-//				obj.setLanguage(rS.getString("language"));
-//				obj.setOriginal_language_id(rS.getInt("original_language_id"));
-//				obj.setRental_duration(rS.getInt("rental_duration"));
-//				obj.setRental_rate(rS.getDouble("rental_rate"));
-//				obj.setLength(rS.getLong("length"));
-//				obj.setReplacement_cost(rS.getDouble("replacement_cost"));
-//				obj.setRating(rS.getString("rating"));
-//				obj.setSpecial_features(rS.getString("special_features"));
-//				obj.setLast_update(rS.getDate("last_update"));
-//				obj.setDirector(rS.getString("director"));
-						
-				// Adding (Appending) Line by Line Parse of SQl Query
-				this.arr.add(obj);	
-
-			}
-			this.session.close();
-
-			// Acquiring Number of Rows in DB
-			String sql = "SELECT COUNT(*) as Number_Of_Rows FROM film;";
-			SQLQuery querySQL = session.createSQLQuery(sql);
-			List<Integer> resultSQL = querySQL.list();
-					
-			// Extracting Data from Result Set
-			this.numberOfRows = resultSQL.get(0);
-
-			// Converting the HashMap into Response
-			this.responseData.put("success", true);
-			this.responseData.put("totalCount", this.numberOfRows);
-			this.responseData.put("filmData", this.arr);
-					
-		}
-
-		catch (Exception e) {
+		} catch(Exception e) {
+			
 			e.printStackTrace();
+			this.responseData.put("success", false);
+			return this.responseData;
+			
+		} finally {
+			
+			// Closing the Transaction Session
+			this.session.close();
+			
 		}
-		finally {
-			System.out.println("Execution Over!");
-		}
-		return responseData;
+		
+		// Converting the HashMap into Response
+		this.responseData.put("success", true);
+		this.responseData.put("totalCount", this.list.size());
+		this.responseData.put("filmData", this.list);
+		System.out.println("Response Prepared!");
+		
+		return this.responseData;
+		
 	}
+	
+    /* ####################################################################################
+	#                           `geLangData` Execute Function                             #
+	#################################################################################### */
+	@SuppressWarnings("unchecked")
+	public HashMap<String, Object> getSakilaLangData() {
+		
+		System.out.println("*".repeat(50));
+		System.out.println("Calling GetLangData Action...");
+		System.out.println("*".repeat(50));
+		
+		// Hibernate Connectivity
+		System.out.println("Checking for Hibernate Session Connection: " + this.getSession().openSession().isConnected());
+		this.session = this.getSession().openSession();
+		
+		// Acquiring Data From Object using ORM and Adding Criterias [Filter] to our Result
+		try {
+			
+			System.out.println("Executing Query...");
+			this.criteria = this.session.createCriteria(LanguagePojo.class);
+			this.langList = this.criteria.list();
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			this.responseData.put("success", false);
+			return this.responseData;
+			
+		} finally {
+			
+			// Closing the Transaction Session
+			this.session.close();
+			
+		}
 
+		// Converting the HashMap into Response
+		this.responseData.put("success", true);
+//		responseData.put("lang_list", langList);
+//		responseData.put("count", langList.size());
+		this.responseData.put("totalCount", this.langList.size());
+		this.responseData.put("lang_list", this.langList);
+		System.out.println("Response Prepared!");
+				
+		return this.responseData;
+		
+	}
+	
 	/* ####################################################################################
 	#                           `addData` Execute Function                                #
 	#################################################################################### */
-	@SuppressWarnings("deprecation")
-	public String addSakilaData(FilmPojo obj) {
+	public HashMap<String, Object> addSakilaData(FilmPojo obj) {
 		
 		System.out.println("*".repeat(50));
 		System.out.println("Calling AddData Action...");
 		System.out.println("*".repeat(50));
-
-		// DB Connection
+		
+		// Hibernate Connectivity
+		System.out.println("Checking for Hibernate Session Connection: " + this.getSession().openSession().isConnected());
+		this.session = this.getSession().openSession();
+		
+		// ORM Operations
 		try {
 			
-			LanguagePojo langobj = (LanguagePojo) this.session.load(LanguagePojo.class, getLanguageId(obj.getLanguage()));
-
-			// Checking out for Population of Request Variables
-			String title = obj.getTitle() != null ? obj.getTitle() : "Untitled Film";
-			String description = obj.getDescription() != null ? obj.getDescription() : "";
-			Long release_year = obj.getRelease_year() != 0 ? obj.getRelease_year() : 2021;
-			String language = obj.getLanguage() != null ? obj.getLanguage() : "English";
-			String  director = obj.getDirector() != null ? obj.getDirector() : "";
-			String rating = obj.getRating() != null ? obj.getRating() : "";
-			String special_features = obj.getSpecial_features() != null ? obj.getSpecial_features() : "";
+			// Acquiring Language Name from Language Model Object
+			LanguagePojo langObj = (LanguagePojo) this.session.load(LanguagePojo.class, this.getLanguageId(obj.getLanguage_name())); 
+			obj.setLanguage(langObj);
 			
-//			// Add Data POJO Object
-//			FilmPojo addObject =  new FilmPojo();
-//			addObject.setTitle(title);
-//			addObject.setDescription(description);
-//			addObject.setRelease_year(release_year);
-//			addObject.setLanguage(language);
-//			addObject.setOriginal_language_id(1);
-//			addObject.setRating(rating);
-//			addObject.setSpecial_features(special_features);
-//			addObject.setDirector(director);
-			
-			// HQL Query String Generation
-			this.hql = "INSERT INTO film (title, `description`, release_year, language_id, director, rating, special_features)\r\n"
-						+ "VALUES (:title, :description, :release_year, (SELECT language_id FROM `language` WHERE `name` = :language), :director, :rating, :special_features)";
-			
-			this.query = this.session.createQuery(hql);
-			this.query.setString("title", title);
-			this.query.setString("description", description);
-			this.query.setLong("release_year", release_year);
-			this.query.setString("language", language);
-			this.query.setString("director", director);
-			this.query.setString("rating", rating);
-			this.query.setString("special_features", special_features);
-			
-			// Opening a Session using Hibernate
-			this.factory = new Configuration().configure().buildSessionFactory();
-			this.session = this.factory.openSession();
-			
-			// Execute HQL Query
-			System.out.println("Query Associated: " + this.query);
-			this.query.executeUpdate();
-//			this.session.save(obj);
+			// Executing HQL Query
+			if(!this.session.getTransaction().isActive()) 
+				this.session.beginTransaction();
 			System.out.println("Executing Query...");
+			this.session.save(obj);
 			
 			// Commiting the Transaction
-			this.transaction.commit();
+			this.session.getTransaction().commit();
 			System.out.println("Query Sucessful! Inserted 1 Row in DB.");
-
-			// Closing Transaction Session
+			success = true;
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			this.success = false;
+			
+		} finally {
+			
+			// Closing the Transaction Session
 			this.session.close();
 			
 		}
-
-		catch (Exception e) {
-			
-			if (this.transaction != null) 
-				this.transaction.rollback();
-			e.printStackTrace(); 
-			return "error";
-			
-		}
 		
-		finally {
-			
-			System.out.println("Execution Over!");
-			
-		}
-
-		return "success";
+		// Converting the HashMap into Response
+		this.responseData.put("success", this.success);
+		
+		return this.responseData;
 
 	}
 
@@ -292,73 +211,50 @@ public class SakilaDAO implements DAOInterface {
 	#                          `editData` Execute Function                                #
 	#################################################################################### */
 
-	public String editSakilaData(FilmPojo obj) {
+	public HashMap<String, Object> editSakilaData(FilmPojo obj) {
 		
 		System.out.println("*".repeat(50));
 		System.out.println("Calling EditData Action...");
 		System.out.println("*".repeat(50));
-
-		// DB Connection
+		 
+		// Hibernate Connectivity
+		System.out.println("Checking for Hibernate Session Connection: " + this.getSession().openSession().isConnected());
+		this.session = this.getSession().openSession();
+		
+		// ORM Operations
 		try {
-
-			// Opening a Session using Hibernate
-	       	this.factory = new Configuration().configure().buildSessionFactory();
-			this.session = this.factory.openSession();
-				
-			// Opening up Transaction Session
-			this.transaction = this.session.beginTransaction();
 			
-			// HQL Query String Generation
-			this.hql = "UPDATE film \r\n"
-						+ "SET title = :title, \r\n"
-						+ "`description` = :description,\r\n"
-						+ "release_year = :release_year,\r\n"
-						+ "language_id = (SELECT language_id FROM `language` WHERE `name` = :language),\r\n"
-						+ "director = :director,\r\n"
-						+ "rating = :rating,\r\n"
-						+ "special_features = :special_features\r\n"
-						+ "WHERE film_id = :film_id;";
+			// Acquiring Language Name from Language Model Object
+			LanguagePojo langObj = (LanguagePojo) session.load(LanguagePojo.class, getLanguageId(obj.getLanguage_name())); 
+			obj.setLanguage(langObj);
 			
-			this.query = this.session.createQuery(hql);
-			this.query.setString("title", obj.getTitle());
-			this.query.setString("description", obj.getDescription());
-			this.query.setLong("release_year", obj.getRelease_year());
-			this.query.setString("language", obj.getLanguage());
-			this.query.setString("director", obj.getDirector());
-			this.query.setString("rating", obj.getRating());
-			this.query.setString("special_features", obj.getSpecial_features());
-			this.query.setInteger("film_id", obj.getFilm_id());
-			
-			// Execute HQL Query
-			System.out.println("Query Associated: " + this.query);
+			// Executing HQL Query
+			if(!this.session.getTransaction().isActive()) 
+				this.session.beginTransaction();
 			System.out.println("Executing Query...");
-			this.query.executeUpdate();
+			this.session.saveOrUpdate(obj);
 			
 			// Commiting the Transaction
-			this.transaction.commit();
+			this.session.getTransaction().commit();
 			System.out.println("Query Sucessful! Updated 1 Row in DB.");
-
-			// Closing DB Connection
+			this.success = true;
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			this.success = false;
+			
+		} finally {
+			
+			// Closing the Transaction Session
 			this.session.close();
 			
 		}
-
-		catch (Exception e) {
-			
-			if (this.transaction != null) 
-				this.transaction.rollback();
-			e.printStackTrace(); 
-			return "error";
-			
-		}
 		
-		finally {
-			
-			System.out.println("Execution Over!");
-			
-		}
-
-		return "success";
+		// Converting the HashMap into Response
+		this.responseData.put("success", this.success);
+		
+		return this.responseData;
 
 	}
 
@@ -366,32 +262,31 @@ public class SakilaDAO implements DAOInterface {
 	#                         `deleteData` Execute Function                               #
 	#################################################################################### */
 	@SuppressWarnings("deprecation")
-	public String deleteSakilaData(String del_filmIds) {
+	public HashMap<String, Object> deleteSakilaData(String del_filmIds) {
 		
 		System.out.println("*".repeat(50));
 		System.out.println("Calling DeleteData Action...");
 		System.out.println("*".repeat(50));
-
-		// DB Connection
+		
+		// Hibernate Connectivity
+		System.out.println("Checking for Hibernate Session Connection: " + this.getSession().openSession().isConnected());
+		this.session = this.getSession().openSession();
+		
+		// Making the Request into Suitable Format
+		String[] filmIdListString = del_filmIds.split(",");
+		ArrayList<Integer> filmIdList = new ArrayList<>();
+		for(String id : filmIdListString) {
+			filmIdList.add(Integer.parseInt(id));
+		}
+		
+		// ORM Operations
 		try {
 			
-
-			// Opening a Session using Hibernate
-	       	this.factory = new Configuration().configure().buildSessionFactory();
-			this.session = this.factory.openSession();
-				
 			// Opening up Transaction Session
-			this.transaction = this.session.beginTransaction();
-			
-			// Making the Request into Suitable Format
-			String[] filmIdListString = del_filmIds.split(",");
-			ArrayList<Integer> filmIdList = new ArrayList<>();
-			for(String id : filmIdListString) {
-				filmIdList.add(Integer.parseInt(id));
-			}
+			if(!this.session.getTransaction().isActive()) 
+				this.transaction = this.session.beginTransaction();
 			
 			// Using For Loop to Perform the Task
-					
 			for(int id : filmIdList) {
 							
 				// HQL Query String Generation
@@ -413,23 +308,24 @@ public class SakilaDAO implements DAOInterface {
 			// Closing Transaction Session
 			this.session.close();
 			
-		}
-
-		catch (Exception e) {
+		} catch (Exception e) {
 			
 			if (this.transaction != null) 
 				this.transaction.rollback();
 			e.printStackTrace(); 
-			return "error";
+			this.success = false;
+			
+		} finally {
+			
+			// Closing the Transaction Session
+			this.session.close();
 			
 		}
-		finally {
-			
-			System.out.println("Execution Over!");
-			
-		}
-
-		return "success";
+		
+		// Converting the HashMap into Response
+		this.responseData.put("success", this.success);
+		
+		return this.responseData;
 
 	}
 

@@ -6,12 +6,20 @@
 	<class name="com.highradius.javaTraining.model.LanguagePojo" table="language">
 	
 	    <id name="language_id" type="java.lang.Integer" column="language_id">
-	      <generator class="native"/>
+	      <generator class="identity"/>
 	    </id>
 
 		<property name="name" column ="name" type="java.lang.String" />
 				
-		<property name="last_update" column="last_update" type="java.lang.String" />
+		<set name="movie" table="film" cascade="all" inverse="true" lazy="false" fetch="select" >
+            
+            <key>
+                <column name="language_id" not-null="true" />
+            </key>
+            
+            <one-to-many class="com.highradius.javaTraining.model.LanguagePojo" />
+            
+        </set>
             
 	</class>
 	

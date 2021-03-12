@@ -1,21 +1,19 @@
 package com.highradius.javaTraining.model;
 
+import javax.persistence.Table;
+
+@Table(name="film")
 public class FilmPojo {
 	
 	// Setting in the DataTypes of the Columns
-	private int film_id;
+	private Integer film_id;
 	private String title;
 	private String description;
-	private long release_year;
-	private String language;
-	private int original_language_id;
-	private int rental_duration;
-	private double rental_rate;
-	private long length;
-	private double replacement_cost;
-	private String rating; 
-	private String special_features; 
-	private java.sql.Date last_update;
+	private String release_year;
+	private LanguagePojo language;
+	private String language_name;
+	private String rating;
+	private String special_features;
 	private String director;
 	
 	
@@ -25,7 +23,7 @@ public class FilmPojo {
 	}
 	
 	// Defining Parameterized Constructor
-	public FilmPojo(int film_id, String title, String description, long release_year, String language, int original_language_id, int rental_duration, double rental_rate, long length, double replacement_cost, String rating, String special_features, java.sql.Date last_update, String director) {
+	public FilmPojo(Integer film_id, String title, String description, String release_year, String rating, String special_features, String director, LanguagePojo language) {
 		
 		super();
 		this.film_id = film_id;
@@ -33,23 +31,18 @@ public class FilmPojo {
 		this.description = description;
 		this.release_year = release_year;
 		this.language = language;
-		this.original_language_id = original_language_id;
-		this.rental_duration = rental_duration;
-		this.rental_rate = rental_rate;
-		this.length = length;
-		this.replacement_cost = replacement_cost;
 		this.rating = rating;
 		this.special_features = special_features;
-		this.last_update = last_update;
 		this.director = director;
+		
 	}
 	
 	// Getters and Setters
-	public int getFilm_id() {
+	public Integer getFilm_id() {
 		return film_id;
 	}
 
-	public void setFilm_id(int film_id) {
+	public void setFilm_id(Integer film_id) {
 		this.film_id = film_id;
 	}
 
@@ -69,60 +62,28 @@ public class FilmPojo {
 		this.description = description;
 	}
 
-	public long getRelease_year() {
+	public String getRelease_year() {
 		return release_year;
 	}
 
-	public void setRelease_year(long release_year) {
+	public void setRelease_year(String release_year) {
 		this.release_year = release_year;
 	}
 
-	public String getLanguage() {
+	public LanguagePojo getLanguage() {
 		return language;
 	}
 
-	public void setLanguage(String language) {
+	public void setLanguage(LanguagePojo language) {
 		this.language = language;
 	}
 
-	public int getOriginal_language_id() {
-		return original_language_id;
+	public String getLanguage_name() {
+		return language_name;
 	}
 
-	public void setOriginal_language_id(int original_language_id) {
-		this.original_language_id = original_language_id;
-	}
-
-	public int getRental_duration() {
-		return rental_duration;
-	}
-
-	public void setRental_duration(int rental_duration) {
-		this.rental_duration = rental_duration;
-	}
-
-	public double getRental_rate() {
-		return rental_rate;
-	}
-
-	public void setRental_rate(double rental_rate) {
-		this.rental_rate = rental_rate;
-	}
-
-	public long getLength() {
-		return length;
-	}
-
-	public void setLength(long length) {
-		this.length = length;
-	}
-
-	public double getReplacement_cost() {
-		return replacement_cost;
-	}
-
-	public void setReplacement_cost(double replacement_cost) {
-		this.replacement_cost = replacement_cost;
+	public void setLanguage_name(String language_name) {
+		this.language_name = language_name;
 	}
 
 	public String getRating() {
@@ -139,14 +100,6 @@ public class FilmPojo {
 
 	public void setSpecial_features(String special_features) {
 		this.special_features = special_features;
-	}
-
-	public java.sql.Date getLast_update() {
-		return last_update;
-	}
-
-	public void setLast_update(java.sql.Date last_update) {
-		this.last_update = last_update;
 	}
 
 	public String getDirector() {

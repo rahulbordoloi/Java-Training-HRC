@@ -15,33 +15,19 @@
 			<generator class="identity" />
 		</id>
 
-	    <property name="title" column="title" type="java.lang.String" />
+	    <property name="title" column="title" type="java.lang.String" not-null="true"/>
 	                
 	    <property name="description" column="description" type="java.lang.String" />
 	                
 	    <property name="release_year" column="release_year" type="java.lang.Long" />
 	                
-	    <many-to-one name="LanguageName" class="com.highradius.javaTraining.model.LanguagePojo">
+	    <many-to-one name="language" class="com.highradius.javaTraining.model.LanguagePojo" cascade="all" lazy="false" fetch="select">
 			<column name="language_id" not-null="true"  />
 	    </many-to-one>
 	
-	    <many-to-one name="origiLanguageName" class="com.highradius.javaTraining.model.LanguagePojo">
-			<column name="original_language_id"></column>
-		</many-to-one>
-	
-	    <property name="rental_duration" column="rental_duration" type="java.lang.Integer" />
-	
-	    <property name="rental_rate" column="rental_rate" type="java.lang.Float" />
-	
-	    <property name="length" column="length" type="java.lang.Long" />
-	
-	    <property name="replacement_cost" column="replacement_cost" type="java.lang.Double" />
-	    
 		<property name="rating" column="rating" type="java.lang.String" />
 		           
 		<property name="special_features" column="special_features" type="java.lang.String" />
-		             
-		<property name="last_update" column="last_update" type="java.sql.Date" />
 	
 	    <property name="director" column="director" type="java.lang.String" />
 		
