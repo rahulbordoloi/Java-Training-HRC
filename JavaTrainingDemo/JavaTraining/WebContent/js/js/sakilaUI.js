@@ -22,7 +22,7 @@ var filmStore = Ext.create('Ext.data.Store', {
         url : '/JavaTraining/GetSakila.action',
         enablePaging: true, 
         reader: {
-            type: 'json',
+            type: 'json', 
             // transform: function(records) {
             //     // let filmData = row.filmData
             //     // row.filmData = JSON.parse(filmData)
