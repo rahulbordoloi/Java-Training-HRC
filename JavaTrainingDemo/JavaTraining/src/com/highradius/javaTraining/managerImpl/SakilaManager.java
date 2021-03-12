@@ -28,8 +28,8 @@ public class SakilaManager implements SakilaManagerInterface {
 			obj.setRelease_year(null);
 		if(obj.getLanguage_name() == "")
 			obj.setLanguage_name("English");
-		if(obj.getDirector() == "")
-			obj.setDirector(null);
+		// if(obj.getDirector() == "")
+		// 	obj.setDirector(" ");
 		if(obj.getRating() == "")
 			obj.setRating(null);
 		if(obj.getSpecial_features() == "")

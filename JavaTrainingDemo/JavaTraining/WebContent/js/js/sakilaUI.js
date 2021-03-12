@@ -46,63 +46,63 @@ filmStore.load({
     }
 })
 
-// Reference Model to Create ComboBox for Language Dropdown
-var languageModel = Ext.define('languageModel', {
-    extend: 'Ext.data.Model',
-    fields: [{
-        name: 'languageSelection',
-        type: 'string'
-    }]
-});
-
-// `languageDropDown` Store Object for Language Combobox
-var languageDropDown = Ext.create('Ext.data.Store', {
-    model:  languageModel,
-    data: [
-        {'languageSelection' : "English"},
-        {'languageSelection' : "French"},
-        {'languageSelection' : "German"},
-        {'languageSelection' : "Italian"},
-        {'languageSelection' : "Japanese"},
-        {'languageSelection' : "Mandarin"},
-        {'languageSelection' : "Mongolian"},
-        {'languageSelection' : "Hindi"}
-    ],
-    autoLoad: true
-});
-
-languageDropDown.load();
-
 // // Reference Model to Create ComboBox for Language Dropdown
 // var languageModel = Ext.define('languageModel', {
 //     extend: 'Ext.data.Model',
-//     fields: ['language_id, name']
+//     fields: [{
+//         name: 'languageSelection',
+//         type: 'string'
+//     }]
 // });
 
 // // `languageDropDown` Store Object for Language Combobox
 // var languageDropDown = Ext.create('Ext.data.Store', {
 //     model:  languageModel,
-//     proxy: {
-//         type: 'ajax',
-//         url : '/JavaTraining/GetSakilaLanguage.action',
-//         reader: {
-//             type: 'json',
-//             // transform: function(records) {
-//             //     // let filmData = row.filmData
-//             //     // row.filmData = JSON.parse(filmData)
-//             //     // return row
-//             //     let filmData = JSON.parse(records)
-//             //     return filmData
-//             // },
-//             rootProperty: "langData",
-//             totalProperty: "totalCount",
-//             successProperty: 'success'
-//         }
-//     },
+//     data: [
+//         {'languageSelection' : "English"},
+//         {'languageSelection' : "French"},
+//         {'languageSelection' : "German"},
+//         {'languageSelection' : "Italian"},
+//         {'languageSelection' : "Japanese"},
+//         {'languageSelection' : "Mandarin"},
+//         {'languageSelection' : "Mongolian"},
+//         {'languageSelection' : "Hindi"}
+//     ],
 //     autoLoad: true
 // });
 
 // languageDropDown.load();
+
+// Reference Model to Create ComboBox for Language Dropdown
+var languageModel = Ext.define('languageModel', {
+    extend: 'Ext.data.Model',
+    fields: ['language_id, name']
+});
+
+// `languageDropDown` Store Object for Language Combobox
+var languageDropDown = Ext.create('Ext.data.Store', {
+    model:  languageModel,
+    proxy: {
+        type: 'ajax',
+        url : '/JavaTraining/GetSakilaLanguage.action',
+        reader: {
+            type: 'json',
+            // transform: function(records) {
+            //     // let filmData = row.filmData
+            //     // row.filmData = JSON.parse(filmData)
+            //     // return row
+            //     let filmData = JSON.parse(records)
+            //     return filmData
+            // },
+            rootProperty: "langData",
+            totalProperty: "totalCount",
+            successProperty: 'success'
+        }
+    },
+    autoLoad: true
+});
+
+languageDropDown.load();
 
 // Reference Model to Create ComboBox for rating Dropdown
 var ratingModel = Ext.define('ratingsM', {
@@ -185,9 +185,9 @@ var addWindow = Ext.create('Ext.window.Window', {
             fieldLabel: 'Language',
             store: languageDropDown,
             queryMode: 'local',
-            // displayField: 'name',
-            // valueField: 'name',
-            displayField: 'languageSelection',
+            displayField: 'name',
+            valueField: 'name',
+            // displayField: 'languageSelection',
             name: 'language_name',
             id: 'movie_language'
         }, {
@@ -291,9 +291,9 @@ var editWindow = Ext.create('Ext.window.Window', {
             fieldLabel: 'Language',
             store: languageDropDown,
             queryMode: 'local',
-            // displayField: 'name',
-            // valueField: 'name',
-            displayField: 'languageSelection',
+            displayField: 'name',
+            valueField: 'name',
+            // displayField: 'languageSelection',
             name: 'language_name',
             id: 'editLanguage'
         }, {
@@ -518,9 +518,9 @@ Ext.onReady(function () {
                             fieldLabel: 'Language',
                             store: languageDropDown,
                             queryMode: 'local',
-                            // displayField: 'name',
-                            // valueField: 'name',
-                            displayField: 'languageSelection',
+                            displayField: 'name',
+                            valueField: 'name',
+                            // displayField: 'languageSelection',
                             name: 'language_name',
                             id: 'language_combo'
                         }]

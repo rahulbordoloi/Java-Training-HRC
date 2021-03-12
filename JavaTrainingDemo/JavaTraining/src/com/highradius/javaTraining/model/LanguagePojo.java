@@ -3,6 +3,9 @@ package com.highradius.javaTraining.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Table;
+
+@Table(name="language")
 public class LanguagePojo {
 	
 	// Setting in the DataTypes of the Columns

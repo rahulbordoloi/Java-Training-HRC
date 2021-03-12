@@ -17,7 +17,6 @@ public class FilmPojo {
 	private String director;
 	private boolean isDeleted;
 	
-	
 	// Default Constructor
 	public FilmPojo() {
 		// TODO Auto-generated constructor stub

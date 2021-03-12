@@ -11,7 +11,7 @@
 
 		<property name="name" column ="name" type="java.lang.String" />
 				
-		<set name="movie" table="film" cascade="all" inverse="true" lazy="false" fetch="select" >
+		<set name="movie" table="film" cascade="all" inverse="true" lazy="false" fetch="select">
             
             <key>
                 <column name="language_id" not-null="true" />

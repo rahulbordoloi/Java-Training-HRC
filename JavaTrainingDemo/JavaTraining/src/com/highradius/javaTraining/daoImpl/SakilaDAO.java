@@ -77,8 +77,8 @@ public class SakilaDAO implements DAOInterface {
 	public Long getTotalRows() {
 		
 		Session sessionRows = getSession().openSession();
-		// Query queryRows = sessionRows.createSQLQuery("SELECT COUNT(*) FROM film");
-		Query queryRows = sessionRows.createQuery("SELECT COUNT(*) FROM FilmPojo");
+//		Query queryRows = sessionRows.createSQLQuery("SELECT COUNT(*) FROM film WHERE isDeleted != 1");
+		Query queryRows = sessionRows.createQuery("SELECT COUNT(*) FROM FilmPojo WHERE isDeleted != 1");
 	
 		return (Long) queryRows.uniqueResult();
 			
