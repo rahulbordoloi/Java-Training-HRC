@@ -2,10 +2,10 @@
 
 * Contains the Following - 
 
-i.   ExtJs UI Implementation
-ii.  Servlet Implementation
-iii. Struts Implementation
-iv.  SpringBoot Implementation
-v.   Hibernate Implementation
+i.   ExtJs UI Implementation    <br>
+ii.  Servlet Implementation     <br>
+iii. Struts Implementation      <br>
+iv.  SpringBoot Implementation  <br>
+v.   Hibernate Implementation   <br>
 
 * Deployment Server being used - Apache Tomcat v8.5
