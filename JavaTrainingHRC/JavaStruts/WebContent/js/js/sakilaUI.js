@@ -329,7 +329,7 @@ var editWindow = Ext.create('Ext.window.Window', {
 
 // `deleteWindow` Window for Delete Button Functionality
 var deleteWindow = Ext.create('Ext.window.Window', {
-    title: 'Edit',
+    title: 'Delete',
     width: 400,
     html: "<p>Are you sure you want to Delete!?</p>",
     layout: 'fit',
