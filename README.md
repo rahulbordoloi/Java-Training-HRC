@@ -1,5 +1,7 @@
 # Java Training 
 
+Full Stack Dynamic Java-EE Project for Internal HRC Java Training.
+
 * Contains the Following - 
 
 i.   ExtJs UI Implementation    <br>
